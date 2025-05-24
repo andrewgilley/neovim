@@ -21,8 +21,8 @@ require('cmp').setup({
   },
 
   mapping = cmp.mapping.preset.insert({
-    ['<C-k>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-    ['<C-j>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+    ['{'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+    ['}'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
     ['<CR>'] = cmp.mapping.confirm({ select = true }),
     ['<Tab>'] = cmp.mapping.confirm({ select = true }),
     ['q'] = cmp.mapping.abort(),
