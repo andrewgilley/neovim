@@ -24,11 +24,3 @@ function _G.CustomFoldText()
   local line = vim.fn.getline(vim.v.foldstart)
     return line
 end
-
---vim.cmd('colorscheme gruvbox')
---vim.cmd('colorscheme vscode')
-vim.cmd('colorscheme onedark')
---vim.cmd('colorscheme onenord')
---vim.cmd('colorscheme material')
---vim.cmd('colorscheme material-palenight')
---vim.cmd('colorscheme material-darker')

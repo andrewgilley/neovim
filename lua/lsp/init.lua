@@ -1,3 +1,4 @@
+require('lsp.lsp')
 require('lsp.luals')
 require('lsp.pyright')
 require('lsp.tsserver')

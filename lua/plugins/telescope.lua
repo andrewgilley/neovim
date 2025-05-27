@@ -23,8 +23,8 @@ require('telescope').setup({
 
     layout_config = {
       anchor = 'CENTER',
-      height = 0.82,
-      width = 0.76,
+      height = 0.92,
+      width = 0.88,
       prompt_position = 'bottom',
 
       horizontal = {
