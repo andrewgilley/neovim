@@ -1,7 +1,0 @@
-require('lsp.lsp')
-require('lsp.luals')
-require('lsp.pyright')
-require('lsp.tsserver')
-require('lsp.twls')
-require('lsp.clangd')
-require('lsp.zls')
