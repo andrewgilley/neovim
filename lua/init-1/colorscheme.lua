@@ -1,0 +1,8 @@
+--vim.cmd('colorscheme gruvbox')
+--vim.cmd('colorscheme gruvbox-material')
+--vim.cmd('colorscheme vscode')
+vim.cmd('colorscheme onedark')
+--vim.cmd('colorscheme onenord')
+--vim.cmd('colorscheme material')
+--vim.cmd('colorscheme material-palenight')
+--vim.cmd('colorscheme material-darker')

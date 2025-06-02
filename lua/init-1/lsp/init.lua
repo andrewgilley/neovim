@@ -1,0 +1,7 @@
+require('init-1.lsp.lsp')
+require('init-1.lsp.luals')
+require('init-1.lsp.pyright')
+require('init-1.lsp.tsserver')
+require('init-1.lsp.twls')
+require('init-1.lsp.clangd')
+require('init-1.lsp.zls')
