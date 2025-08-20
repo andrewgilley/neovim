@@ -1,0 +1,5 @@
+require('lsp.lsp')
+require('lsp.luals')
+require('lsp.pyright')
+require('lsp.clangd')
+require('lsp.zls')

@@ -1,0 +1,7 @@
+require('plugins.cmp')
+require('plugins.oil')
+require('plugins.nvim-tree')
+require('plugins.persisted')
+require('plugins.toggleterm')
+require('plugins.telescope')
+require('plugins.treesitter')
