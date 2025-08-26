@@ -6,8 +6,8 @@ require('toggleterm').setup({
 
   float_opts = {
     border = 'curved',
-    width = function() return math.floor(vim.o.columns * 0.82) end,
-    height = function() return math.floor(vim.o.lines * 0.82) end
+    width = function() return math.floor(vim.o.columns * 0.84) end,
+    height = function() return math.floor(vim.o.lines * 0.84) end
   },
 
   on_close = function()

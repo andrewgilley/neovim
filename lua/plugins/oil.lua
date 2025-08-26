@@ -2,10 +2,15 @@ require('oil').setup({
   skip_confirm_for_simple_edits = true,
   keymaps = {
     ['-'] = false,
+
     ['<Backspace>'] = { 'actions.parent', mode = 'n' },
-    ['<A-p>'] = { 'actions.parent', mode = 'n' },
-    ['j'] = { 'actions.parent', mode = 'n' },
-    ['l'] = { 'actions.select', mode = 'n' },
+
+    ['<C-j>'] = { 'actions.parent', mode = 'n' },
+    ['<C-l>'] = { 'actions.select', mode = 'n' },
+
+    ['<C-i>'] = { 'k', mode = 'n' },
+    ['<C-k>'] = { 'j', mode = 'n' },
+
     ['q'] = { 'actions.close', mode = 'n' },
   },
 

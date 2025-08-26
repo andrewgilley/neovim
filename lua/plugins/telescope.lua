@@ -71,6 +71,7 @@ local action_state = require('telescope.actions.state')
 
 vim.keymap.set('n', '<leader>te', function()
   builtin.builtin({
+    prompt_title = 'Builtin',
     previewer = false,
   })
 end)
