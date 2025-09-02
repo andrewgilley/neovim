@@ -8,7 +8,7 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'zig', 'c', 'cpp', 'ps1' },
+  pattern = { 'zig', 'c', 'cpp', 'python', 'ps1' },
   callback = function()
     vim.bo.expandtab = true
     vim.bo.shiftwidth = 4

@@ -2,6 +2,7 @@
 --vim.cmd('colorscheme tairiki')
 
 vim.cmd('colorscheme tomorrow-night')
+--vim.cmd('colorscheme moonwalk')
 
 --vim.cmd('colorscheme naysayer')
 --vim.cmd('colorscheme everforest')
@@ -55,4 +56,8 @@ if vim.g.colors_name == 'kanagawa' then
   vim.api.nvim_set_hl(0, 'StatusLineNC', { fg = '#54546D', bg = 'NONE' })
 
   vim.api.nvim_set_hl(0, 'WinSeparator', { fg = '#1F1F28', bg = 'NONE' })
+end
+
+if vim.g.colors_name == 'moonwalk' then
+  vim.opt.background = 'light'
 end

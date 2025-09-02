@@ -70,16 +70,14 @@ vim.keymap.set('n', 'cl', 'yy', { noremap = true, silent = true })
 vim.keymap.set('n', 'dl', 'dd', { noremap = true, silent = true })
 
 vim.keymap.set('n', '<leader>so', ':so<CR>', { silent = true })
-
 vim.keymap.set('n', '<leader>sq', ':s/\"/\'/g<CR>q', { silent = true })
-vim.keymap.set('n', '<leader>sb', ':set scrollbind!<CR>', { silent = true })
 
 vim.keymap.set('n', '<leader>dr', ':cd %:p:h<CR>:pwd<CR>', { silent = true })
-vim.keymap.set('n', '<leader>ch', ':checkhealth vim.lsp<CR>', { silent = true })
 
-vim.keymap.set('n', '<leader>cm', function()
-      vim.opt.cmdheight = 0
-end, { silent = true })
+vim.keymap.set('n', '<leader>ck', ':checkhealth vim.lsp<CR>', { silent = true })
+
+vim.keymap.set('n', '<leader>ch', ':lua vim.opt.cmdheight = 0<CR>', { silent = true })
+vim.keymap.set('n', '<leader>cm', ':lua vim.opt.cmdheight = 1<CR>', { silent = true })
 
 vim.keymap.set('n', '<leader>vd', ':lua vim.diagnostic.open_float()<CR>', { silent = true })
 

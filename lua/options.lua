@@ -19,6 +19,7 @@ vim.opt.cmdheight = 1
 vim.opt.autoindent = true
 vim.opt.smartindent = true
 vim.opt.shortmess:append('I')
+vim.opt.shortmess:append('A')
 vim.opt.guicursor:append('t:ver25')
 
 --vim.opt.guifont = 'Fira Code'
