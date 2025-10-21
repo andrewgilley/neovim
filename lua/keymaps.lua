@@ -19,11 +19,14 @@ vim.keymap.set({ 'n', 'x' }, '<leader>ni', '9')
 vim.keymap.set({ 'i', 't' }, 'jk', '<Esc>', { noremap = true, silent = true })
 vim.keymap.set({ 'i', 't' }, 'JK' , '<Esc>', { noremap = true, silent = true })
 
+vim.keymap.set({ 'i', 't' }, '<C-[>' , '<Esc>', { noremap = true, silent = true })
+
 vim.keymap.set('n', '<Tab>', 'n', { silent = true })
 vim.keymap.set('n', '<S-Tab>', 'N', { silent = true })
 
 vim.keymap.set('n', '<leader>w', ':silent w<CR>', { silent = true })
 vim.keymap.set('n', '<leader>q', ':q<CR>')
+vim.keymap.set('n', '<leader>aw', ':silent w!<CR>:<CR>', { silent = true })
 vim.keymap.set('n', '<leader>aq', ':q!<CR>')
 
 vim.keymap.set('n', '<leader>cl', ':<CR>', { silent = false })
@@ -55,7 +58,6 @@ vim.keymap.set('i', '<C-c>', '<Esc>', { silent = true })
 
 vim.keymap.set('v', '<C-c>', '"+y', { silent = true })
 vim.keymap.set('v', '<C-v>', '"+p')
-
 vim.keymap.set('i', '<C-v>', '<C-r>+')
 vim.keymap.set('c', '<C-v>', '<C-r>+')
 
@@ -73,18 +75,10 @@ vim.keymap.set('n', '<leader>so', ':so<CR>', { silent = true })
 vim.keymap.set('n', '<leader>sq', ':s/\"/\'/g<CR>q', { silent = true })
 
 vim.keymap.set('n', '<leader>dr', ':cd %:p:h<CR>:pwd<CR>', { silent = true })
-
-vim.keymap.set('n', '<leader>ck', ':checkhealth vim.lsp<CR>', { silent = true })
-
-vim.keymap.set('n', '<leader>ch', ':lua vim.opt.cmdheight = 0<CR>', { silent = true })
-vim.keymap.set('n', '<leader>cm', ':lua vim.opt.cmdheight = 1<CR>', { silent = true })
+vim.keymap.set('n', '<leader>ch', ':checkhealth vim.lsp<CR>', { silent = true })
 
 vim.keymap.set('n', '<leader>vd', ':lua vim.diagnostic.open_float()<CR>', { silent = true })
-
-vim.keymap.set('n', '<leader>vs', function()
-  vim.cmd('vs')
-  vim.g.neovide_scale_factor = 0.8347
-end, { silent = true })
+vim.keymap.set('n', '<leader>vs', ':vs<CR>', { silent = true })
 
 vim.keymap.set({ 'n', 'i' }, '<C-Tab>', '<Esc>:bn<CR>', { silent = true })
 vim.keymap.set('n', '<C-S-Tab>', ':bp<CR>', { silent = true })
@@ -95,7 +89,7 @@ vim.keymap.set('n', '<leader>ba', ':b#<CR>', { silent = true })
 vim.keymap.set('n', '<leader>br', '$%', { silent = false })
 vim.keymap.set({ 'n', 'v' }, '-', '$', { silent = false })
 
-vim.keymap.set({ 'n', 'v' }, 'gt', 'gg', { silent = true })
+vim.keymap.set({ 'n', 'v' }, 'gt', 'gg0', { silent = true })
 vim.keymap.set({ 'n', 'v' }, 'gb', 'G', { silent = true })
 
 vim.keymap.set('n', '<leader>in', 'gg=G<CR>', { silent = true })

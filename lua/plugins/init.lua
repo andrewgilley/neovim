@@ -1,5 +1,6 @@
 require('plugins.cmp')
 require('plugins.oil')
+require('plugins.octo')
 require('plugins.nvim-tree')
 require('plugins.persisted')
 require('plugins.toggleterm')

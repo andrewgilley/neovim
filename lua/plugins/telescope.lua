@@ -66,8 +66,6 @@ require('telescope').setup({
 vim.keymap.set('n', '<C-s>', ':Telescope persisted<CR>')
 
 local builtin = require('telescope.builtin')
-local actions = require('telescope.actions')
-local action_state = require('telescope.actions.state')
 
 vim.keymap.set('n', '<leader>te', function()
   builtin.builtin({

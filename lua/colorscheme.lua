@@ -1,17 +1,22 @@
---vim.cmd('colorscheme sitruuna')
+vim.cmd('colorscheme sitruuna')
 --vim.cmd('colorscheme tairiki')
 
-vim.cmd('colorscheme tomorrow-night')
+--vim.cmd('colorscheme tomorrow-night')
 --vim.cmd('colorscheme moonwalk')
 
 --vim.cmd('colorscheme naysayer')
 --vim.cmd('colorscheme everforest')
+
+--vim.cmd('colorscheme github_dark_dimmed')
 
 --vim.cmd('colorscheme material-oceanic')
 --vim.cmd('colorscheme material-darker')
 --vim.cmd('colorscheme material-palenight')
 
 --vim.cmd('colorscheme onedark')
+--vim.cmd('colorscheme sonokai')
+
+--vim.cmd('colorscheme nord')
 
 --vim.cmd('colorscheme tokyonight')
 --vim.cmd('colorscheme kanagawa')
@@ -58,6 +63,16 @@ if vim.g.colors_name == 'kanagawa' then
   vim.api.nvim_set_hl(0, 'WinSeparator', { fg = '#1F1F28', bg = 'NONE' })
 end
 
-if vim.g.colors_name == 'moonwalk' then
-  vim.opt.background = 'light'
+if vim.g.colors_name == 'material' then
+  vim.api.nvim_set_hl(0, 'StatusLine', { fg = 'NONE', bg = 'NONE' })
+  vim.api.nvim_set_hl(0, 'StatusLineNC', { fg = 'NONE', bg = 'NONE' })
+
+  vim.api.nvim_set_hl(0, 'WinSeparator', { fg = '#212121', bg = 'NONE' })
+end
+
+if vim.g.colors_name == 'github_dark_dimmed' then
+  vim.api.nvim_set_hl(0, 'StatusLine', { fg = '#636E7B', bg = 'NONE' })
+  vim.api.nvim_set_hl(0, 'StatusLineNC', { fg = '#636E7B', bg = 'NONE' })
+
+  vim.api.nvim_set_hl(0, 'WinSeparator', { fg = '#22272E', bg = 'NONE' })
 end
