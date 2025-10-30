@@ -1,5 +1,5 @@
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'html', 'css', 'js', 'json', 'jsx', 'ts', 'tsx', 'typescript', 'typescriptreact', 'lua', 'toml' },
+  pattern = { 'html', 'css', 'js', 'json', 'jsx', 'ts', 'tsx', 'typescript', 'javascript', 'typescriptreact', 'lua', 'toml' },
   callback = function()
     vim.bo.expandtab = true
     vim.bo.shiftwidth = 2

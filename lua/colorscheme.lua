@@ -1,7 +1,7 @@
-vim.cmd('colorscheme sitruuna')
+--vim.cmd('colorscheme sitruuna')
 --vim.cmd('colorscheme tairiki')
-
 --vim.cmd('colorscheme tomorrow-night')
+
 --vim.cmd('colorscheme moonwalk')
 
 --vim.cmd('colorscheme naysayer')
@@ -17,6 +17,9 @@ vim.cmd('colorscheme sitruuna')
 --vim.cmd('colorscheme sonokai')
 
 --vim.cmd('colorscheme nord')
+vim.cmd('colorscheme onenord')
+
+--vim.cmd('colorscheme moonwalk')
 
 --vim.cmd('colorscheme tokyonight')
 --vim.cmd('colorscheme kanagawa')
@@ -75,4 +78,11 @@ if vim.g.colors_name == 'github_dark_dimmed' then
   vim.api.nvim_set_hl(0, 'StatusLineNC', { fg = '#636E7B', bg = 'NONE' })
 
   vim.api.nvim_set_hl(0, 'WinSeparator', { fg = '#22272E', bg = 'NONE' })
+end
+
+if vim.g.colors_name == 'onenord' then
+  vim.api.nvim_set_hl(0, 'StatusLine', { fg = '#6C7A96', bg = 'NONE' })
+  vim.api.nvim_set_hl(0, 'StatusLineNC', { fg = '#6C7A96', bg = 'NONE' })
+
+  vim.api.nvim_set_hl(0, 'WinSeparator', { fg = '#2E3440', bg = 'NONE' })
 end
