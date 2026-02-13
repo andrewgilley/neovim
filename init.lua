@@ -1,0 +1,5 @@
+require("settings.lazy")
+require("settings.keymaps")
+require("settings.options")
+require("settings.autocmd")
+require("settings.colorscheme")
