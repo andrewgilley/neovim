@@ -12,8 +12,8 @@ return {
           padding = 2,
           gap = 3,
           columns = {
+            { "label", "label_description", gap = 3 },
             { "kind", gap = 2 },
-            { "label", "label_description", gap = 3 }
           },
         },
       },
@@ -21,7 +21,6 @@ return {
 
     keymap = {
       preset = "none" ,
-
       ['<Tab>'] = { 'select_next', 'fallback' },
       ['<S-Tab>'] = { 'select_prev', 'fallback' },
 

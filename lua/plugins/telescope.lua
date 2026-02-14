@@ -24,7 +24,7 @@ return {
             ['l'] = actions.select_default,
             ['j'] = actions.close,
             ['<C-c>'] = actions.close,
-            ['dl'] = actions.delete_buffer,
+            ['<C-d>'] = actions.delete_buffer,
           },
         },
 
@@ -36,12 +36,13 @@ return {
           prompt_position = 'bottom',
         },
       },
+
       pickers = {
         colorscheme = {
           enable_preview = true
         },
         find_files = {
-          find_command = { 'fd', '--type', 'f', '--hidden' }
+          find_command = { 'fd', '--type', 'f' },
         },
       },
     })
@@ -50,7 +51,13 @@ return {
 
     vim.keymap.set('n', '<leader>te', function() builtin.builtin({ prompt_title = 'Builtin', previewer = false }) end)
     vim.keymap.set('n', '<leader>co', function() builtin.colorscheme({ previewer = true }) end)
-    vim.keymap.set('n', '<leader>bf', function() builtin.buffers({ initial_mode = 'insert', previewer = false }) end)
+
+
+    vim.keymap.set('n', '<leader>bf', function() builtin.buffers({ initial_mode = 'normal', previewer = true,
+      layout_config = {
+        preview_width = 0.48,
+      },
+    }) end)
 
     vim.keymap.set('n', '<leader>fd', function() builtin.find_files({ prompt_title = "Find file", initial_mode = 'insert', previewer = false }) end)
     vim.keymap.set('n', '<leader>fc', function() builtin.find_files({ prompt_title = 'Find config', previewer = false, cwd = vim.fn.stdpath('config') }) end)

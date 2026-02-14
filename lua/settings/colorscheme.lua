@@ -30,6 +30,8 @@ if vim.g.colors_name == "github_dark_dimmed" then
   vim.api.nvim_set_hl(0, "StatusLineNC", { fg = '#636E7B', bg = 'NONE' })
 
   vim.api.nvim_set_hl(0, "WinSeparator", { fg = '#30363D', bg = 'NONE' })
+
+  vim.api.nvim_set_hl(0, "Folded", { bg = "NONE", fg = "#A5D6FF", italic = true })
 end
 
 if vim.g.colors_name == "material" then
@@ -79,6 +81,8 @@ if vim.g.colors_name == "rose-pine" then
 
   vim.api.nvim_set_hl(0, "TelescopePromptNormal", { link = "Normal" })
   vim.api.nvim_set_hl(0, "TelescopePromptBorder", { link = "Normal" })
+
+  vim.api.nvim_set_hl(0, "DiagnosticBorder", { fg = "#E0DEF4", bg = "NONE" })
 end
 
 if vim.g.colors_name == "everforest" then

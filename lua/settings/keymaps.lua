@@ -37,7 +37,7 @@ vim.keymap.set("n", "<leader>cl", function()
   vim.opt.cmdheight = 1
 end)
 
-vim.keymap.set('n', '<S-o>', 'o<Esc>o<Esc>', { noremap = true })
+vim.keymap.set('n', '<S-O>', 'o<Esc>o', { noremap = true })
 
 vim.keymap.set('n', 'cw', 'ciw', { silent = true })
 vim.keymap.set('n', 'cp', 'cib', { silent = true })
@@ -81,15 +81,16 @@ vim.keymap.set({ 'n', 'i' }, '<C-Left>', '10h', { silent = true })
 
 vim.keymap.set('n', '<leader>sc', 'zt10<C-y>$', { noremap = true })
 vim.keymap.set('n', '<leader>sm', 'zt15<C-y>$', { noremap = true })
+vim.keymap.set('n', '<leader>sb', 'zt25<C-y>$', { noremap = true })
 
-vim.keymap.set('i', '<C-c>', '<Esc>', { silent = true })
+--vim.keymap.set('i', '<C-c>', '<Esc>', { silent = true })
 
 vim.keymap.set('v', '<C-c>', '"+y', { silent = true })
 vim.keymap.set('v', '<C-p>', '"+p')
 
 vim.keymap.set('n', '<C-p>', '"+p')
 
-vim.keymap.set('i', '<C-p>', '<C-r>+')
+vim.keymap.set('i', '<C-p>', '<C-r><C-p>+')
 vim.keymap.set('c', '<C-p>', '<C-r>+')
 
 vim.keymap.set('n', '<C-a>', '<C-w>w', { silent = true })
@@ -121,8 +122,7 @@ vim.keymap.set('n', '<leader>vs', ':vs<CR>', { silent = true })
 
 vim.keymap.set('n', '<leader>ma', ':Mason<CR>' , { silent = true })
 
-vim.keymap.set({ 'n', 'i' }, '<C-Tab>', '<Esc>:bn<CR>zt10<C-y>', { silent = true })
-vim.keymap.set('n', '<C-S-Tab>', ':bp<CR>', { silent = true })
+vim.keymap.set({ 'n', 'i' }, '<C-Tab>', '<Esc>:bn<CR>', { silent = true })
 
 vim.keymap.set('n', '<leader>bd', ':bd<CR>', { silent = true })
 vim.keymap.set('n', '<leader>ba', ':b#<CR>', { silent = true })
@@ -164,6 +164,8 @@ vim.keymap.set('n', '<leader>cd', function()
   local path = vim.fn.input(':', '', 'dir')
   if path ~= "" then
     vim.cmd('cd ' .. path)
-    print(vim.fn.getcwd())
+    --print(vim.fn.getcwd())
+  vim.opt.cmdheight = 0
+  vim.opt.cmdheight = 1
   end
 end)

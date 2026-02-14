@@ -21,11 +21,13 @@ return {
   {
     "neovim/nvim-lspconfig",
     config = function()
-      local servers = { "lua_ls", "pyright", "ts_ls", "rust_analyzer", "clangd" }
+      local servers = { "lua_ls", "pyright", "ts_ls", "rust_analyzer", "clangd", "jdtls" }
+      local capabilities = require('blink.cmp').get_lsp_capabilities()
 
       for _, server in ipairs(servers) do
         vim.lsp.config[server] = {
           enabled = true,
+          capabilities = capabilities,
         }
       end
 
@@ -40,13 +42,19 @@ return {
         },
       }
 
-      vim.lsp.config["ts_ls"] = {
-        enabled = true,
-        cmd = { "typescript-language-server", "--stdio" },
-        filetypes = { "typescript", "typescriptreact" },
-        root_dir = vim.fs.dirname(vim.fs.find({'tsconfig.json'}, { upward = true })[1]),
-        single_file_support = true,
-      }
+      vim.lsp.handlers["textDocument/publishDiagnostics"] = function(_, result, ctx, config)
+        result.diagnostics = vim.tbl_filter(function(diagnostic)
+          return not string.find(diagnostic.message, "non%-project file")
+        end, result.diagnostics)
+        vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
+      end
+
     end
   },
+
+  vim.diagnostic.config({
+    float = {
+      border = "single",
+    },
+  })
 }

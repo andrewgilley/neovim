@@ -21,9 +21,9 @@ return {
 
         ["q"] = "actions.close",
 
-        ["<leader>w"] = { 
-          callback = function() require("oil").save({ confirm = false }) 
-          end, 
+        ["<leader>w"] = {
+          callback = function() require("oil").save({ confirm = false })
+          end,
         },
       },
     })

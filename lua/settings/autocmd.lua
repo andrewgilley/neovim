@@ -2,7 +2,8 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = {
     'html', 'css', 'js', 'json',
     'jsx', 'ts', 'tsx', 'typescript',
-    'typescriptreact', 'lua', 'toml'
+    'typescriptreact', 'lua', 'toml',
+    'autohotkey'
   },
 
   callback = function()
@@ -89,6 +90,16 @@ vim.api.nvim_create_autocmd("CmdlineLeave", {
         vim.opt.cmdheight = 1
       end)
     end
+  end,
+})
+
+vim.api.nvim_create_autocmd("CmdlineLeave", {
+  pattern = "/",
+  callback = function()
+    vim.schedule(function()
+      local keys = vim.api.nvim_replace_termcodes("<leader>sm", true, false, true)
+      vim.api.nvim_feedkeys(keys, "m", false)
+    end)
   end,
 })
 
