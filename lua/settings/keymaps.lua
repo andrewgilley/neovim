@@ -15,6 +15,8 @@ vim.keymap.set({ 'n', 'x' }, '<leader>se', '7')
 vim.keymap.set({ 'n', 'x' }, '<leader>ei', '8')
 vim.keymap.set({ 'n', 'x' }, '<leader>ni', '9')
 
+vim.keymap.set('x', 'y', 'myy`y', { noremap = true })
+
 vim.keymap.set('n', '<ScrollWheelUp>', '4<C-y>', { silent = true })
 vim.keymap.set('n', '<ScrollWheelDown>', '4<C-e>', { silent = true })
 
@@ -165,7 +167,7 @@ vim.keymap.set('n', '<leader>cd', function()
   if path ~= "" then
     vim.cmd('cd ' .. path)
     --print(vim.fn.getcwd())
-  vim.opt.cmdheight = 0
-  vim.opt.cmdheight = 1
+    vim.opt.cmdheight = 0
+    vim.opt.cmdheight = 1
   end
 end)

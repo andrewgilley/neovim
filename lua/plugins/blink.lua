@@ -7,6 +7,7 @@ return {
     completion = {
       menu = {
         border = "rounded",
+        scrollbar = false,
 
         draw = {
           padding = 2,

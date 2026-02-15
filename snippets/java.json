@@ -1,13 +1,13 @@
 {
   "SOP": {
     "prefix": "sop",
-    "body": "System.out.print(\"$1\");",
+    "body": "System.out.println(\"$1\");",
     "description": "Print to stdout with quotes"
   },
 
-  "SOPL": {
-    "prefix": "sopl",
-    "body": "System.out.println(\"$1\");",
+  "SOPN": {
+    "prefix": "sopn",
+    "body": "System.out.print(\"$1\");",
     "description": "Print to stdout with quotes"
   }
 }
