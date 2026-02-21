@@ -97,7 +97,7 @@ vim.api.nvim_create_autocmd("CmdlineLeave", {
   pattern = "/",
   callback = function()
     vim.schedule(function()
-      local keys = vim.api.nvim_replace_termcodes("<leader>sm", true, false, true)
+      local keys = vim.api.nvim_replace_termcodes("zt15<C-y>", true, false, true)
       vim.api.nvim_feedkeys(keys, "m", false)
     end)
   end,

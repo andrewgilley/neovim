@@ -1,15 +1,19 @@
---vim.cmd("colorscheme material-darker")
---vim.cmd("colorscheme material-oceanic")
---vim.cmd("colorscheme gruvbox-material")
---vim.cmd("colorscheme tokyonight-moon")
---vim.cmd("colorscheme github_dark_dimmed")
---vim.cmd("colorscheme github_dark")
---vim.cmd("colorscheme deepwater")
-vim.cmd("colorscheme rose-pine")
---vim.cmd("colorscheme everforest")
---vim.cmd("colorscheme wombat")
---vim.cmd("colorscheme nord")
---vim.cmd("colorscheme gruvbox")
+-- vim.cmd("colorscheme material-darker")
+-- vim.cmd("colorscheme material-oceanic")
+-- vim.cmd("colorscheme gruvbox-material")
+-- vim.cmd("colorscheme gruvbox")
+-- vim.cmd("colorscheme tokyonight")
+-- vim.cmd("colorscheme tokyonight-moon")
+-- vim.cmd("colorscheme github_dark_dimmed")
+-- vim.cmd("colorscheme github_dark")
+vim.cmd("colorscheme onedark")
+-- vim.cmd("colorscheme deepwater")
+-- vim.cmd("colorscheme rose-pine")
+-- vim.cmd("colorscheme everforest")
+-- vim.cmd("colorscheme wombat")
+-- vim.cmd("colorscheme nord")
+-- vim.cmd("colorscheme studio98")
+-- vim.cmd("colorscheme PaperColor")
 
 vim.api.nvim_set_hl(0, "CursorLineNr", { link = 'LineNr' })
 
@@ -29,9 +33,21 @@ if vim.g.colors_name == "github_dark_dimmed" then
   vim.api.nvim_set_hl(0, "StatusLine", { fg = '#636E7B', bg = 'NONE' })
   vim.api.nvim_set_hl(0, "StatusLineNC", { fg = '#636E7B', bg = 'NONE' })
 
-  vim.api.nvim_set_hl(0, "WinSeparator", { fg = '#30363D', bg = 'NONE' })
+  vim.api.nvim_set_hl(0, "WinSeparator", { fg = '#22272E', bg = 'NONE' })
 
   vim.api.nvim_set_hl(0, "Folded", { bg = "NONE", fg = "#A5D6FF", italic = true })
+end
+
+if vim.g.colors_name == "onedark" then
+  vim.api.nvim_set_hl(0, "StatusLine", { fg = '#5C6370', bg = '#282C34' })
+  vim.api.nvim_set_hl(0, "StatusLineNC", { fg = '#5C6370', bg = '#282C34' })
+
+  vim.api.nvim_set_hl(0, "WinSeparator", { fg = '#282C34', bg = 'NONE' })
+
+  vim.api.nvim_set_hl(0, "TelescopeBorder",        { fg = "#ABB2BF" })
+  vim.api.nvim_set_hl(0, "TelescopePromptBorder",  { fg = "#ABB2BF" })
+  vim.api.nvim_set_hl(0, "TelescopeResultsBorder", { fg = "#ABB2BF" })
+  vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { fg = "#ABB2BF" })
 end
 
 if vim.g.colors_name == "material" then
@@ -74,7 +90,10 @@ if vim.g.colors_name == "rose-pine" then
   vim.api.nvim_set_hl(0, "StatusLine", { fg = "#696580", bg = "#191724" })
   vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#696580", bg = "#191724" })
 
+  vim.api.nvim_set_hl(0, "MsgArea", { fg = "#E0DEF4", bg = "NONE"  })
+
   vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#191724", bg = "NONE" })
+
 
   vim.api.nvim_set_hl(0, "TelescopeNormal", { link = "Normal" })
   vim.api.nvim_set_hl(0, "TelescopeBorder", { link = "Normal" })
@@ -85,11 +104,29 @@ if vim.g.colors_name == "rose-pine" then
   vim.api.nvim_set_hl(0, "DiagnosticBorder", { fg = "#E0DEF4", bg = "NONE" })
 end
 
+if vim.g.colors_name == "studio98" then
+  vim.api.nvim_set_hl(0, 'EndOfBuffer', { fg = "bg", bg = "bg" })
+  vim.api.nvim_set_hl(0, 'LineNr', { fg = "NONE", bg = "bg" })
+end
+
+if vim.g.colors_name == "PaperColor" then
+  vim.o.background = "light"
+  vim.api.nvim_set_hl(0, "CursorLineNr", { link = "LineNr" })
+end
+
+
 if vim.g.colors_name == "everforest" then
   vim.api.nvim_set_hl(0, "StatusLine", { fg = "#56635F", bg = "#2D353B" })
   vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#56635F", bg = "#2D353B" })
 
   vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#2D353B", bg = "NONE" })
+end
+
+if vim.g.colors_name == "ayu" then
+  vim.api.nvim_set_hl(0, "StatusLine", { fg = "NONE", bg = "NONE" })
+  vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "NONE", bg = "NONE" })
+
+  vim.api.nvim_set_hl(0, "WinSeparator", { fg = "NONE", bg = "NONE" })
 end
 
 if vim.g.colors_name == "wombat" then

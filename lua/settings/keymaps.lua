@@ -17,14 +17,8 @@ vim.keymap.set({ 'n', 'x' }, '<leader>ni', '9')
 
 vim.keymap.set('x', 'y', 'myy`y', { noremap = true })
 
-vim.keymap.set('n', '<ScrollWheelUp>', '4<C-y>', { silent = true })
-vim.keymap.set('n', '<ScrollWheelDown>', '4<C-e>', { silent = true })
-
-vim.keymap.set('i', '<ScrollWheelUp>', '<C-o>3<C-y>', { silent = true })
-vim.keymap.set('i', '<ScrollWheelDown>', '<C-o>3<C-e>', { silent = true })
-
-vim.keymap.set({ 'i', 't' }, 'jk', '<Esc>', { noremap = true, silent = true })
-vim.keymap.set({ 'i', 't' }, 'JK' , '<Esc>', { noremap = true, silent = true })
+-- vim.keymap.set({ 'i', 't' }, 'jk', '<Esc>', { noremap = true, silent = true })
+-- vim.keymap.set({ 'i', 't' }, 'JK' , '<Esc>', { noremap = true, silent = true })
 
 vim.keymap.set('n', '<C-]>', 'n')
 vim.keymap.set('n', '<C-[>', 'N')
@@ -49,8 +43,7 @@ vim.keymap.set('n', 'cd', 'ci"', { silent = true })
 vim.keymap.set('n', 'ca', 'ci<', { silent = true })
 vim.keymap.set('n', 'cr', 'ci[', { silent = true })
 
-vim.keymap.set('n', '<leader>co', '^i--<Esc>^', { silent = true })
-vim.keymap.set('n', '<leader>cu', '^2x<Esc>^', { silent = true })
+vim.keymap.set('n', 'dw', 'daw', { silent = true })
 
 vim.keymap.set('n', 'L', '}k$', { noremap = true, silent = true })
 
@@ -85,7 +78,7 @@ vim.keymap.set('n', '<leader>sc', 'zt10<C-y>$', { noremap = true })
 vim.keymap.set('n', '<leader>sm', 'zt15<C-y>$', { noremap = true })
 vim.keymap.set('n', '<leader>sb', 'zt25<C-y>$', { noremap = true })
 
---vim.keymap.set('i', '<C-c>', '<Esc>', { silent = true })
+vim.keymap.set('i', '<C-c>', '<Esc>', { silent = true })
 
 vim.keymap.set('v', '<C-c>', '"+y', { silent = true })
 vim.keymap.set('v', '<C-p>', '"+p')
@@ -120,7 +113,10 @@ vim.keymap.set('n', '<leader>pwd', ':pwd<CR>', { silent = true })
 vim.keymap.set('n', '<leader>ch', ':checkhealth vim.lsp<CR>', { silent = true })
 vim.keymap.set('n', '<leader>vd', ':lua vim.diagnostic.open_float()<CR>', { silent = true })
 
+vim.keymap.set('n', '<leader>co', 'gcc', { remap = true, silent = true })
+
 vim.keymap.set('n', '<leader>vs', ':vs<CR>', { silent = true })
+vim.keymap.set('n', '<leader>hs', ':split<CR>', { silent = true })
 
 vim.keymap.set('n', '<leader>ma', ':Mason<CR>' , { silent = true })
 
@@ -143,11 +139,9 @@ vim.keymap.set('n', '<', '<<', { noremap = true, silent = true })
 vim.keymap.set('v', '<leader>sr', '>gv', { noremap = true, silent = true })
 vim.keymap.set('v', '<leader>sl', '<gv', { noremap = true, silent = true })
 
-vim.keymap.set('n', '<leader>in', 'mzgg=G`z', { silent = true })
+vim.keymap.set('n', '<leader>in', 'mzgg=G`zzt15<C-y>$', { silent = true })
 
 vim.keymap.set('n', '<leader>en', ':enew<CR>', { silent = true })
-vim.keymap.set('n', '<leader>ec', ':e ~/AppData/Local/nvim-lazy/lua/config/keymaps.lua<CR>', { silent = true })
-
 vim.keymap.set('n', '<leader>eh', ':lua vim.diagnostic.enable(false, { bufnr = 0 })<CR>', { silent = true })
 
 vim.keymap.set('t', '<C-d>', [[<C-\><C-n>]])

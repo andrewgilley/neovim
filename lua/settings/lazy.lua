@@ -32,6 +32,9 @@ require("lazy").setup({
      "ellisonleao/gruvbox.nvim", lazy = true,
      "f4z3r/gruvbox-material.nvim", lazy = true,
      "rose-pine/neovim", lazy = true,
+     "jnz/studio98", lazy = true,
+     "navarasu/onedark.nvim", lazy = true,
+     "NLKNguyen/papercolor-theme", lazy = true,
 
       vim.keymap.set('n', '<leader>la', ':Lazy<CR>', { silent = true })
 
