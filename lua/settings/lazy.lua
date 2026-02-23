@@ -35,6 +35,7 @@ require("lazy").setup({
      "jnz/studio98", lazy = true,
      "navarasu/onedark.nvim", lazy = true,
      "NLKNguyen/papercolor-theme", lazy = true,
+     "rebelot/kanagawa.nvim", lazy = true,
 
       vim.keymap.set('n', '<leader>la', ':Lazy<CR>', { silent = true })
 

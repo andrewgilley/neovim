@@ -80,7 +80,8 @@ return {
     vim.keymap.set('n', '<leader>fc', function() builtin.find_files({
       prompt_title = 'Find config',
       previewer = false,
-      cwd = vim.fn.stdpath('config')
+      cwd = vim.fn.stdpath('config'),
+      file_ignore_patterns = { "%.json$" },
     }) end)
 
     vim.keymap.set('n', '<leader>fu', function() builtin.find_files({ prompt_title = 'Find user', previewer = false, cwd = 'C:/Users/andre' }) end)

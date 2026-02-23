@@ -125,7 +125,7 @@ vim.keymap.set({ 'n', 'i' }, '<C-Tab>', '<Esc>:bn<CR>', { silent = true })
 vim.keymap.set('n', '<leader>bd', ':bd<CR>', { silent = true })
 vim.keymap.set('n', '<leader>ba', ':b#<CR>', { silent = true })
 
-vim.keymap.set({ 'n', 'v' }, '<leader>br', '$%', { silent = false })
+vim.keymap.set({ 'n', 'v' }, '<leader>br', '%', { remap = true })
 vim.keymap.set({ 'n', 'v' }, '-', '$', { silent = false })
 
 vim.keymap.set({ 'n', 'v' }, 'gt', 'gg0', { silent = true })

@@ -3,10 +3,10 @@
 -- vim.cmd("colorscheme gruvbox-material")
 -- vim.cmd("colorscheme gruvbox")
 -- vim.cmd("colorscheme tokyonight")
--- vim.cmd("colorscheme tokyonight-moon")
+vim.cmd("colorscheme kanagawa")
 -- vim.cmd("colorscheme github_dark_dimmed")
 -- vim.cmd("colorscheme github_dark")
-vim.cmd("colorscheme onedark")
+-- vim.cmd("colorscheme onedark")
 -- vim.cmd("colorscheme deepwater")
 -- vim.cmd("colorscheme rose-pine")
 -- vim.cmd("colorscheme everforest")
@@ -14,6 +14,8 @@ vim.cmd("colorscheme onedark")
 -- vim.cmd("colorscheme nord")
 -- vim.cmd("colorscheme studio98")
 -- vim.cmd("colorscheme PaperColor")
+-- vim.cmd("colorscheme torte")
+-- vim.cmd("colorscheme desert")
 
 vim.api.nvim_set_hl(0, "CursorLineNr", { link = 'LineNr' })
 
@@ -50,11 +52,30 @@ if vim.g.colors_name == "onedark" then
   vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { fg = "#ABB2BF" })
 end
 
+if vim.g.colors_name == "torte" then
+  vim.api.nvim_set_hl(0, "StatusLine", { fg = '#7F7F7F', bg = 'NONE' })
+  vim.api.nvim_set_hl(0, "StatusLineNC", { fg = '#7F7F7F', bg = 'NONE' })
+
+  vim.api.nvim_set_hl(0, 'CursorLineSign', { link = 'SignColumn' })
+
+  vim.api.nvim_set_hl(0, "WinSeparator", { fg = '#080808', bg = 'NONE' })
+end
+
+if vim.g.colors_name == "desert" then
+  vim.api.nvim_set_hl(0, "StatusLine", { fg = '#787878', bg = 'NONE' })
+  vim.api.nvim_set_hl(0, "StatusLineNC", { fg = '#787878', bg = 'NONE' })
+
+  vim.api.nvim_set_hl(0, 'CursorLineSign', { link = 'SignColumn' })
+
+  vim.api.nvim_set_hl(0, "WinSeparator", { fg = 'NONE', bg = 'NONE' })
+  vim.api.nvim_set_hl(0, 'EndOfBuffer', { fg = "bg", bg = "bg" })
+end
+
 if vim.g.colors_name == "material" then
   vim.api.nvim_set_hl(0, "StatusLine", { fg = "#515151", bg = "NONE" })
   vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#515151", bg = "NONE" })
 
-  vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#212121", bg = "#212121" })
+  vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#212121", bg = "NONE" })
 end
 
 --if vim.g.colors_name == "material" then
@@ -79,6 +100,19 @@ if vim.g.colors_name == "tokyonight-moon" then
   vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#222436", bg = "NONE" })
 end
 
+if vim.g.colors_name == "kanagawa" then
+  vim.api.nvim_set_hl(0, "StatusLine", { fg = "#5D5D78", bg = "NONE" })
+  vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#5D5D78", bg = "NONE" })
+
+  vim.api.nvim_set_hl(0, "LineNr", { fg = "#5D5D78", bg = "NONE" })
+  vim.api.nvim_set_hl(0, "SignColumn", { bg = "NONE" })
+
+  vim.api.nvim_set_hl(0, "WinSeparator", { fg = "NONE", bg = "NONE" })
+
+  vim.api.nvim_set_hl(0, "TelescopeNormal", { link = "Normal" })
+  vim.api.nvim_set_hl(0, "TelescopeBorder", { link = "Normal" })
+end
+
 if vim.g.colors_name == "deepwater" then
   vim.api.nvim_set_hl(0, "StatusLine", { fg = "#1C454E", bg = "#062329" })
   vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#1C454E", bg = "#062329" })
@@ -93,7 +127,6 @@ if vim.g.colors_name == "rose-pine" then
   vim.api.nvim_set_hl(0, "MsgArea", { fg = "#E0DEF4", bg = "NONE"  })
 
   vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#191724", bg = "NONE" })
-
 
   vim.api.nvim_set_hl(0, "TelescopeNormal", { link = "Normal" })
   vim.api.nvim_set_hl(0, "TelescopeBorder", { link = "Normal" })
@@ -120,13 +153,6 @@ if vim.g.colors_name == "everforest" then
   vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#56635F", bg = "#2D353B" })
 
   vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#2D353B", bg = "NONE" })
-end
-
-if vim.g.colors_name == "ayu" then
-  vim.api.nvim_set_hl(0, "StatusLine", { fg = "NONE", bg = "NONE" })
-  vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "NONE", bg = "NONE" })
-
-  vim.api.nvim_set_hl(0, "WinSeparator", { fg = "NONE", bg = "NONE" })
 end
 
 if vim.g.colors_name == "wombat" then
