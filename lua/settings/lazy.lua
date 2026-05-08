@@ -22,24 +22,31 @@ require("lazy").setup({
   spec = {
     { import = "plugins" },
 
-     "folke/tokyonight.nvim", lazy = true,
-     "marko-cerovac/material.nvim", lazy = true,
-     "dgrco/deepwater.nvim", lazy = true,
-     "neanias/everforest-nvim", lazy = true,
-     "cschlueter/vim-wombat", lazy = true,
-     "projekt0n/github-nvim-theme", lazy = true,
-     "nordtheme/vim", lazy = true,
-     "ellisonleao/gruvbox.nvim", lazy = true,
-     "f4z3r/gruvbox-material.nvim", lazy = true,
-     "rose-pine/neovim", lazy = true,
-     "jnz/studio98", lazy = true,
-     "navarasu/onedark.nvim", lazy = true,
-     "NLKNguyen/papercolor-theme", lazy = true,
-     "rebelot/kanagawa.nvim", lazy = true,
-
-      vim.keymap.set('n', '<leader>la', ':Lazy<CR>', { silent = true })
-
+    "folke/tokyonight.nvim",
+    "marko-cerovac/material.nvim",
+    "dgrco/deepwater.nvim",
+    "neanias/everforest-nvim",
+    "cschlueter/vim-wombat",
+    "projekt0n/github-nvim-theme",
+    "nordtheme/vim",
+    "ellisonleao/gruvbox.nvim",
+    "f4z3r/gruvbox-material.nvim",
+    "rose-pine/neovim",
+    "jnz/studio98",
+    "navarasu/onedark.nvim",
+    "NLKNguyen/papercolor-theme",
+    "rebelot/kanagawa.nvim",
+    "valonmulolli/heap.nvim",
+    "0xleodevv/oc-2.nvim",
+    "devbydaniel/houston.nvim",
+    "EdenEast/nightfox.nvim",
   },
 
-  checker = { enabled = true },
+  checker = {
+    enabled = true,
+    notify = false,
+  },
+
+
+  vim.keymap.set('n', '<leader>la', ':Lazy<CR>', { silent = true })
 })

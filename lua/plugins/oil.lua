@@ -11,6 +11,10 @@ return {
         show_hidden = true,
       },
 
+      columns = {
+        "icon",
+      },
+
       keymaps = {
         ["-"] = false,
 

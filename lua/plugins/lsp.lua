@@ -13,7 +13,7 @@ return {
         "pyright",
         "ts_ls",
         "rust_analyzer",
-        "clangd"
+        "clangd",
       },
     },
   },
@@ -21,7 +21,16 @@ return {
   {
     "neovim/nvim-lspconfig",
     config = function()
-      local servers = { "lua_ls", "pyright", "ts_ls", "rust_analyzer", "clangd", "jdtls" }
+      local servers = {
+        "lua_ls",
+        "pyright",
+        "ts_ls",
+        "rust_analyzer",
+        "clangd",
+        "jdtls",
+        "ltex_plus"
+      }
+
       local capabilities = require('blink.cmp').get_lsp_capabilities()
 
       for _, server in ipairs(servers) do
@@ -42,12 +51,12 @@ return {
         },
       }
 
-      vim.lsp.handlers["textDocument/publishDiagnostics"] = function(_, result, ctx, config)
-        result.diagnostics = vim.tbl_filter(function(diagnostic)
-          return not string.find(diagnostic.message, "non%-project file")
-        end, result.diagnostics)
-        vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
-      end
+      vim.lsp.config["ltex_plus"] = {
+        enabled = true,
+        enableCompletion = true,
+        filetypes = { "markdown", "tex", "text", "plaintex", "typst" },
+        capabilities = capabilities,
+      }
 
     end
   },
@@ -55,6 +64,9 @@ return {
   vim.diagnostic.config({
     float = {
       border = "single",
+      wrap = true,
+      max_width = 65,
+      max_height = 30,
     },
-  })
+  }),
 }

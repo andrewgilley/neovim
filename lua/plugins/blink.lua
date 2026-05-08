@@ -8,14 +8,14 @@ return {
       menu = {
         border = "rounded",
         scrollbar = false,
-        max_height = 10,
+        max_height = 8,
 
         draw = {
           padding = 2,
           gap = 3,
           columns = {
             { "label", "label_description", gap = 3 },
-            { "kind", gap = 2 },
+            { "kind", gap = 3 },
           },
         },
       },
@@ -27,7 +27,7 @@ return {
       ['<S-Tab>'] = { 'select_prev', 'fallback' },
       ['<C-,>'] = { 'show', 'fallback' },
       ['<CR>'] = { 'accept', 'fallback' },
-      ['q'] = { 'hide', 'fallback' },
+      ['<C-q>'] = { 'hide', 'fallback' },
     },
 
     appearance = {

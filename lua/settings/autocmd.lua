@@ -1,3 +1,5 @@
+local restore_view_group = vim.api.nvim_create_augroup("RestoreView", { clear = true })
+
 vim.api.nvim_create_autocmd('FileType', {
   pattern = {
     'html', 'css', 'js', 'json',
@@ -14,7 +16,12 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'zig', 'c', 'cpp', 'python', 'java', 'javascript', 'ps1', 'dosbatch' },
+  pattern = {
+    'zig', 'c', 'cpp', 'cc', 'hpp',
+    'python', 'java', 'javascript', 'ps1',
+    'text', 'dosbatch'
+  },
+
   callback = function()
     vim.bo.expandtab = true
     vim.bo.shiftwidth = 4
@@ -45,7 +52,7 @@ vim.api.nvim_create_autocmd({'BufEnter'}, {
 })
 
 vim.api.nvim_create_autocmd("BufWinLeave", {
-  group = vim.api.nvim_create_augroup("RestoreView", { clear = true }),
+  group = restore_view_group,
   pattern = "*",
   callback = function()
     vim.b.saved_view = vim.fn.winsaveview()
@@ -53,13 +60,18 @@ vim.api.nvim_create_autocmd("BufWinLeave", {
 })
 
 vim.api.nvim_create_autocmd("BufWinEnter", {
-  group = vim.api.nvim_create_augroup("RestoreView", { clear = true }),
+  group = restore_view_group,
   pattern = "*",
   callback = function()
     if vim.b.saved_view then
       vim.fn.winrestview(vim.b.saved_view)
     end
   end,
+})
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  command = [[%s/\s\+$//e]],
 })
 
 vim.api.nvim_create_autocmd({'TabLeave'}, {
@@ -97,14 +109,8 @@ vim.api.nvim_create_autocmd("CmdlineLeave", {
   pattern = "/",
   callback = function()
     vim.schedule(function()
-      local keys = vim.api.nvim_replace_termcodes("zt15<C-y>", true, false, true)
+      local keys = vim.api.nvim_replace_termcodes("zt10<C-y>", true, false, true)
       vim.api.nvim_feedkeys(keys, "m", false)
     end)
   end,
 })
-
---vim.api.nvim_create_autocmd("VimEnter", {
-  --  callback = function()
-    --    require("toggleterm").toggle(0)
-    --  end,
-    --})
