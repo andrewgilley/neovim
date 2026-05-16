@@ -88,7 +88,6 @@ if vim.g.colors_name == "oc-2" then
   vim.api.nvim_set_hl(0, 'BlinkCmpLabelDescription', { bg = oc2_bg, fg = oc2_fg })
   vim.api.nvim_set_hl(0, 'BlinkCmpKind', { bg = oc2_bg, fg = oc2_fg })
 
-
   vim.api.nvim_set_hl(0, "DiagnosticBorder", { fg = "#FFFFFF", bg = "NONE" })
 
   vim.api.nvim_set_hl(0, "NormalFloat", { fg = oc2_fg, bg = oc2_bg })
@@ -146,7 +145,7 @@ if vim.g.colors_name == "oc-2" then
     end,
   })
 
-  vim.api.nvim_set_hl(0, "WinSeparator", { fg = oc2_bg, bg = 'NONE' })
+  vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#545454", bg = 'NONE' })
 
   vim.api.nvim_create_autocmd("FileType", {
     group = vim.api.nvim_create_augroup("Oc2TelescopePromptCursor", { clear = true }),

@@ -1,7 +1,13 @@
 return {
   {
     "mason-org/mason.nvim",
-    opts = {},
+    opts = {
+      ui = {
+        keymaps = {
+          install_package = "I",
+        },
+      },
+    },
 
   },
 

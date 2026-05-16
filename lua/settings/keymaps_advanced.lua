@@ -1,171 +1,3 @@
-vim.keymap.set({ "n", "v", "o", "x" }, "i", "k", { nowait = true })
-vim.keymap.set({ "n", "v", "o", "x" }, "k", "j", { nowait = true })
-vim.keymap.set({ "n", "v", "o", "x" }, "j", "h", { nowait = true })
-
-vim.keymap.set('n', 'n', 'i', { noremap = true, nowait = true })
-
-vim.keymap.set({ 'n', 'x' }, '<leader>ze', '0')
-vim.keymap.set({ 'n', 'x' }, '<leader>on', '1')
-vim.keymap.set({ 'n', 'x' }, '<leader>tw', '2')
-vim.keymap.set({ 'n', 'x' }, '<leader>th', '3')
-vim.keymap.set({ 'n', 'x' }, '<leader>fo', '4')
-vim.keymap.set({ 'n', 'x' }, '<leader>fi', '5')
-vim.keymap.set({ 'n', 'x' }, '<leader>si', '6')
-vim.keymap.set({ 'n', 'x' }, '<leader>se', '7')
-vim.keymap.set({ 'n', 'x' }, '<leader>ei', '8')
-vim.keymap.set({ 'n', 'x' }, '<leader>ni', '9')
-
-vim.keymap.set('x', 'y', 'myy`y', { noremap = true })
-
-vim.keymap.set("n", "<C-]>", "n zt10<C-y>$", { silent = true })
-vim.keymap.set("n", "<C-[>", "N", { silent = true })
-
-vim.keymap.set("n", "<leader>go", "[{zt10<C-y>$", { silent = true })
-
-vim.keymap.set('n', '<leader>w', ':silent w<CR>', { silent = true })
-vim.keymap.set('n', '<leader>q', ':silent q<CR>', { silent = true })
-vim.keymap.set('n', '<leader>aw', ':silent w!<CR>:<CR>', { silent = true })
-vim.keymap.set('n', '<leader>aq', ':q!<CR>')
-
-vim.keymap.set('n', '<leader>as', 'A;<Esc>', { noremap = true, silent = true })
-
-vim.keymap.set("n", "<leader>cl", function()
-  vim.opt.cmdheight = 1
-end)
-
-vim.keymap.set('n', '<S-o>', 'o<Esc>o', { noremap = true })
-vim.keymap.set('n', '<A-o>', '<S-o>', { noremap = true })
-
-vim.keymap.set('n', 'cw', 'ciw', { silent = true })
-vim.keymap.set('n', 'cp', 'cib', { silent = true })
-vim.keymap.set('n', 'cb', 'ci{', { silent = true })
-vim.keymap.set('n', 'cs', 'ci\'', { silent = true })
-vim.keymap.set('n', 'cd', 'ci"', { silent = true })
-vim.keymap.set('n', 'ca', 'ci<', { silent = true })
-vim.keymap.set('n', 'cr', 'ci[', { silent = true })
-
-vim.keymap.set('n', 'dw', 'daw', { silent = true })
-vim.keymap.set('n', 'dp', 'dap', { silent = true })
-
-vim.keymap.set('n', 'L', '}k$', { noremap = true, silent = true })
-
-vim.keymap.set('n', 'q', ':nohlsearch<CR>', { silent = true })
-vim.keymap.set('n', 'u', ':<C-u>silent undo<CR>', { noremap = true, silent = true })
-
-vim.keymap.set({ 'n', 'x' }, '<C-i>', '10k', { silent = true })
-vim.keymap.set({ 'n', 'x' }, '<C-k>', '10j', { silent = true })
-
-vim.keymap.set('n', '<S-i>', '<C-y>', { silent = true })
-vim.keymap.set('n', '<S-k>', '<C-e>', { silent = true })
-
-vim.keymap.set('n', '<S-C-i>', '10<C-y>', { silent = true })
-vim.keymap.set('n', '<S-C-k>', '10<C-e>', { silent = true })
-
-vim.keymap.set({ 'n', 'v' }, '<C-l>', '10l', { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<C-j>', '10h', { silent = true })
-
-vim.keymap.set({ 'n', 'i', 'x' }, '<C-Up>', '10k', { silent = true })
-vim.keymap.set({ 'n', 'i', 'x' }, '<C-Down>', '10j', { silent = true })
-
-vim.keymap.set({ 'n', 'i', 'x' }, '<S-Up>', '<C-y>', { silent = true })
-vim.keymap.set({ 'n', 'i', 'x' }, '<S-Down>', '<C-e>', { silent = true })
-
-vim.keymap.set({ 'n', 'i', 'x' }, '<S-C-Up>', '10<C-y>', { silent = true })
-vim.keymap.set({ 'n', 'i', 'x' }, '<S-C-Down>', '10<C-e>', { silent = true })
-
-vim.keymap.set({ 'n', 'i' }, '<C-Right>', '10l', { silent = true })
-vim.keymap.set({ 'n', 'i' }, '<C-Left>', '10h', { silent = true })
-
-vim.keymap.set('n', '<C-z>', 'zh')
-vim.keymap.set('n', '<C-x>', 'zl')
-
-vim.keymap.set('n', '<leader>sz', '^hzs$')
-
-vim.keymap.set('n', '<leader>st', 'zt5<C-y>$', { noremap = true })
-vim.keymap.set('n', '<leader>sc', 'zt10<C-y>$', { noremap = true })
-vim.keymap.set('n', '<leader>sm', 'zt10<C-y>$', { noremap = true })
-vim.keymap.set('n', '<leader>sb', 'zt25<C-y>$', { noremap = true })
-
-vim.keymap.set('n', '<leader>sr', ':silent source .session.vim<CR>', { silent = true })
-
-vim.keymap.set('n', '<leader>ew', '<C-w>=')
-
-vim.keymap.set('n', '<C-s>', '<C-w>r')
-
-vim.keymap.set('n', '<C-c>', '<Esc>', { silent = true })
-vim.keymap.set('i', '<C-c>', '<Esc>', { silent = true })
-
-vim.keymap.set('v', '<C-c>', '"+y', { silent = true })
-
-vim.keymap.set('v', '<C-p>', '"+p', { noremap = true })
-vim.keymap.set('n', '<C-p>', '"+p')
-vim.keymap.set('i', '<C-p>', '<C-r><C-p>+')
-vim.keymap.set('c', '<C-p>', '<C-r>+')
-
-vim.keymap.set("n", "<S-p>", "o<Esc>p")
-
-vim.keymap.set('v', '<C-y>', '"+y', { silent = true })
-
-vim.keymap.set('n', '<C-a>', '<C-w>w', { silent = true })
-
-vim.keymap.set('n', 'yy', '<Nop>', { noremap = true, silent = true })
-vim.keymap.set('n', 'dd', '<Nop>', { noremap = true, silent = true })
-
-vim.keymap.set('n', 'cl', 'yy', { noremap = true, silent = true })
-vim.keymap.set('n', 'dl', 'dd', { noremap = true, silent = true })
-
-vim.keymap.set('n', 'zO', 'zR', { noremap = true, silent = true })
-vim.keymap.set('n', 'zC', 'zM', { noremap = true, silent = true })
-
-vim.keymap.set('n', '<leader>so', ':silent w<CR>:so<CR>', { silent = true })
-
-vim.keymap.set('n', '<leader>sd', ':cd %:p:h<CR>:pwd<CR>', { silent = true })
-
-vim.keymap.set('n', '<leader>cpd', ':cd ..<CR>:pwd<CR>', { silent = true })
-vim.keymap.set('n', '<leader>pwd', ':pwd<CR>', { silent = true })
-
-vim.keymap.set('n', '<leader>ch', ':checkhealth vim.lsp<CR>', { silent = true })
-
-vim.keymap.set('n', '<leader>co', 'gcc', { remap = true, silent = true })
-
-vim.keymap.set('n', '<leader>vs', ':vs<CR>', { silent = true })
-vim.keymap.set('n', '<leader>hs', ':split<CR>', { silent = true })
-
-vim.keymap.set('n', '<leader>ma', ':Mason<CR>' , { silent = true })
-
-vim.keymap.set({ 'n', 'i' }, '<S-3>', '<Esc>:tabn<CR>', { silent = true })
-vim.keymap.set({ 'n', 'i' }, '<S-1>', '<Esc>:tabp<CR>', { silent = true })
-
-vim.keymap.set({ 'n', 'i' }, '<leader>tn', '<Esc>:tabn<CR>', { silent = true })
-vim.keymap.set({ 'n', 'i' }, '<leader>tp', '<Esc>:tabp<CR>', { silent = true })
-
-vim.keymap.set('n', '<leader>td', ':tab split<CR>', { silent = true })
-
-vim.keymap.set({ 'n', 'i' }, '<C-Tab>', '<Esc>:bn<CR>', { silent = true })
-vim.keymap.set({ 'n', 'i' }, '<S-Tab>', '<Esc>:bp<CR>', { silent = true })
-
-vim.keymap.set({ 'n', 'i' }, '<leader>bn', '<Esc>:bn<CR>', { silent = true })
-vim.keymap.set({ 'n', 'i' }, '<leader>bp', '<Esc>:bp<CR>', { silent = true })
-
-vim.keymap.set('n', '<leader>bd', ':bd<CR>', { silent = true })
-vim.keymap.set('n', '<leader>ba', ':b#<CR>', { silent = true })
-
-vim.keymap.set('n', '<leader>in', 'mzgg=G``zzzt15<C-y>$', { silent = true })
-
-vim.keymap.set({ 'n', 'v' }, '<leader>br', '%', { remap = true })
-vim.keymap.set({ 'n', 'v' }, '-', '$', { silent = false })
-
-vim.keymap.set({ 'n', 'v' }, 'gb', 'G', { silent = true })
-vim.keymap.set({ 'n', 'v' }, 'gs', '^', { silent = true })
-vim.keymap.set({ 'n', 'v' }, 'gl', '$', { silent = true })
-
-vim.keymap.set('n', '<', '<<', { noremap = true, silent = true })
-
-vim.keymap.set('n', '<leader>en', ':enew<CR>', { silent = true })
-vim.keymap.set('n', '<leader>eh', ':lua vim.diagnostic.enable(false, { bufnr = 0 })<CR>', { silent = true })
-
-vim.keymap.set('t', '<C-d>', [[<C-\><C-n>]])
-
 local function system_first_line(cmd)
   local lines = vim.fn.systemlist(cmd)
 
@@ -290,7 +122,18 @@ local function github_browser_command(url)
   return nil
 end
 
-local function open_url(url)
+local function append_anchor(url, anchor)
+  if not anchor or anchor == "" then
+    return url
+  end
+
+  anchor = anchor:gsub("^#", "")
+  return url .. "#" .. anchor
+end
+
+local function open_url(url, anchor)
+  url = append_anchor(url, anchor)
+
   local browser_cmd = github_browser_command(url)
   if browser_cmd then
     local ok = pcall(vim.system, browser_cmd, { detach = true })
@@ -428,8 +271,57 @@ local function fetch_prs_changing_file(repo, file)
   end)
 end
 
+local gt_view = nil
+
+vim.keymap.set({ 'n', 'v' }, 'gt', function()
+  gt_view = vim.fn.winsaveview()
+  vim.cmd('normal! gg0')
+end, { silent = true })
+
+vim.keymap.set('n', 'gr', function()
+  if gt_view then
+    vim.fn.winrestview(gt_view)
+  end
+end, { silent = true, nowait = true })
+
+vim.keymap.set("n", "<leader>cl", function()
+  vim.opt.cmdheight = 1
+end)
+
+vim.keymap.set("n", "<leader>he", function()
+  vim.ui.input({ prompt = ":" }, function(input)
+    if not input or input == "" then
+      return
+    end
+
+    vim.cmd("help " .. input)
+    vim.cmd("only")
+
+    vim.schedule(function()
+      local keys = vim.api.nvim_replace_termcodes("zt10<C-y>0", true, false, true)
+      local more_keys = vim.api.nvim_replace_termcodes("<Space>rl", true, false, true)
+
+      vim.api.nvim_feedkeys(keys, "m", false)
+      vim.api.nvim_feedkeys(more_keys, "m", false)
+    end)
+
+    vim.schedule(function()
+      vim.opt.cmdheight = 0
+      vim.opt.cmdheight = 1
+    end)
+  end)
+end)
+
 vim.keymap.set("n", "<leader>gi", function()
+  local cwd = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+
+  if cwd == "zig" then
+    open_url("https://codeberg.org/ziglang/zig/issues")
+    return
+  end
+
   local abs_path = vim.fn.expand("%:p")
+
   if abs_path == "" then
     local repo = github_repo_for_dir(vim.fn.getcwd())
     if not repo then
@@ -449,10 +341,11 @@ vim.keymap.set("n", "<leader>gi", function()
 
   local file = vim.fn.expand("%:t")
   local query = 'is:issue "' .. file .. '"'
-  open_github_search(repo, "issues", query)
-end, { desc = "Open GitHub issues search for current file" })
 
-vim.keymap.set("n", "<leader>gm", function()
+  open_github_search(repo, "issues", query)
+end, { desc = "Open issues search for current file" })
+
+vim.keymap.set("n", "<leader>gl", function()
   local abs_path = vim.fn.expand("%:p")
   if abs_path == "" then
     local repo = github_repo_for_dir(vim.fn.getcwd())
@@ -480,19 +373,6 @@ vim.keymap.set("n", "<leader>gm", function()
   local branch = git_default_branch_for_path(abs_path)
   open_url("https://github.com/" .. repo .. "/commits/" .. path_encode(branch) .. "/" .. path_encode(file))
 end, { desc = "Open GitHub commits changing current file" })
-
-local function append_anchor(url, anchor)
-  if not anchor or anchor == "" then
-    return url
-  end
-
-  anchor = anchor:gsub("^#", "")
-  return url .. "#" .. anchor
-end
-
-local function open_url(url, anchor)
-  vim.ui.open(append_anchor(url, anchor))
-end
 
 vim.keymap.set("n", "<leader>gp", function()
   local abs_path = vim.fn.expand("%:p")
@@ -552,13 +432,30 @@ vim.keymap.set('n', '<leader>nu', function()
 end, { silent = true })
 
 vim.keymap.set('n', '<leader>cd', function()
-  local path = vim.fn.input(':', '', 'dir')
-  if path ~= "" then
-    vim.cmd('cd ' .. path)
-    --print(vim.fn.getcwd())
-    vim.opt.cmdheight = 0
-    vim.opt.cmdheight = 1
+  local ok, path = pcall(vim.fn.input, ':', '', 'dir')
+
+  if not ok or path == '' then
+    return
   end
+
+  vim.cmd.cd(vim.fn.fnameescape(path))
+
+  vim.opt.cmdheight = 0
+  vim.opt.cmdheight = 1
+end)
+
+vim.keymap.set('n', '<leader>cs', function()
+  local start_path = [[C:\Users\andre\Desktop\Dev\code\source]]
+
+  local ok, path = pcall(vim.fn.input, ':', start_path .. '\\', 'dir')
+  if not ok or path == '' then
+    return
+  end
+
+  vim.cmd.cd(vim.fn.fnameescape(path))
+
+  vim.opt.cmdheight = 0
+  vim.opt.cmdheight = 1
 end)
 
 vim.keymap.set('n', '<leader>rs', function()
@@ -572,19 +469,6 @@ vim.keymap.set('n', '<leader>rs', function()
     vim.api.nvim_set_current_line(new_line)
   end
 end)
-
-local gt_view = nil
-
-vim.keymap.set({ 'n', 'v' }, 'gt', function()
-  gt_view = vim.fn.winsaveview()
-  vim.cmd('normal! gg0')
-end, { silent = true })
-
-vim.keymap.set('n', 'gr', function()
-  if gt_view then
-    vim.fn.winrestview(gt_view)
-  end
-end, { silent = true, nowait = true })
 
 vim.keymap.set('n', '<leader>eb', function()
   local view = vim.fn.winsaveview()

@@ -17,6 +17,8 @@ return {
           i = {
             ["<C-k>"] = actions.move_selection_next,
             ["<C-i>"] = actions.move_selection_previous,
+            ["<C-Up>"] = actions.move_selection_next,
+            ["<C-Down>"] = actions.move_selection_previous,
             ["<C-d>"] = actions.delete_buffer,
             ["<Tab>"] = actions.move_selection_previous,
           },
@@ -269,7 +271,7 @@ return {
       end
     end)
 
-    vim.keymap.set("n", "<leader>dr", function()
+    vim.keymap.set("n", "<leader>di", function()
       local pickers = require("telescope.pickers")
       local finders = require("telescope.finders")
       local conf = require("telescope.config").values

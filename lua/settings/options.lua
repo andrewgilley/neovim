@@ -7,6 +7,7 @@ vim.opt.bg = "dark"
 vim.opt.scroll = 10
 vim.opt.report = 1000
 vim.opt.showtabline = 0
+vim.opt.statusline = " %F %= %l,%c  "
 vim.opt.timeout = false
 vim.opt.hlsearch = false
 vim.opt.termguicolors = true

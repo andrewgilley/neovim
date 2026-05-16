@@ -1,5 +1,6 @@
 return {
   'nvim-treesitter/nvim-treesitter',
+  branch = "master",
   lazy = false,
   build = ':TSUpdate',
 
@@ -18,6 +19,9 @@ return {
       "tsx",
       "html",
       "css",
+      "toml",
+      "go",
+      "rust",
       "typescript",
       "javascript",
       "java",
@@ -32,12 +36,10 @@ return {
 
         goto_next_start = {
           ["<S-]>"] = "@function.inner",
-          -- ["]]"] = "@class.outer",
         },
 
         goto_previous_start = {
           ["<S-[>"] = "@function.inner",
-          -- ["[["] = "@class.outer",
         },
       },
     },

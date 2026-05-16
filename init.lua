@@ -1,5 +1,6 @@
 require("settings.lazy")
-require("settings.keymaps")
+require("settings.keymaps_basic")
+require("settings.keymaps_advanced")
 require("settings.options")
 require("settings.autocmd")
 require("settings.colorscheme")
