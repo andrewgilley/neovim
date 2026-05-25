@@ -1,5 +1,33 @@
 local restore_view_group = vim.api.nvim_create_augroup("RestoreView", { clear = true })
 
+local function save_window_view()
+  local bufnr = tostring(vim.api.nvim_get_current_buf())
+  vim.w.saved_views = vim.w.saved_views or {}
+  vim.w.saved_views[bufnr] = {
+    cursor = vim.api.nvim_win_get_cursor(0),
+    view = vim.fn.winsaveview(),
+  }
+end
+
+local function restore_window_view()
+  local views = vim.w.saved_views
+  if not views then
+    return
+  end
+
+  local saved = views[tostring(vim.api.nvim_get_current_buf())]
+  if not saved then
+    return
+  end
+
+  if saved.cursor then
+    vim.api.nvim_win_set_cursor(0, saved.cursor)
+  end
+  if saved.view then
+    vim.fn.winrestview(saved.view)
+  end
+end
+
 vim.api.nvim_create_autocmd('FileType', {
   pattern = {
     'html', 'css', 'js', 'json',
@@ -39,57 +67,19 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
-vim.api.nvim_create_autocmd({'BufEnter'}, {
-  callback = function()
-    if vim.b.last_cursor then
-      vim.api.nvim_win_set_cursor(0, vim.b.last_cursor)
-    end
-
-    if vim.b.last_view then
-      vim.fn.winrestview(vim.b.last_view)
-    end
-  end,
+vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter", "TabEnter" }, {
+  group = restore_view_group,
+  callback = restore_window_view,
 })
 
-vim.api.nvim_create_autocmd("BufWinLeave", {
+vim.api.nvim_create_autocmd({ "BufLeave", "WinLeave", "TabLeave" }, {
   group = restore_view_group,
-  pattern = "*",
-  callback = function()
-    vim.b.saved_view = vim.fn.winsaveview()
-  end,
-})
-
-vim.api.nvim_create_autocmd("BufWinEnter", {
-  group = restore_view_group,
-  pattern = "*",
-  callback = function()
-    if vim.b.saved_view then
-      vim.fn.winrestview(vim.b.saved_view)
-    end
-  end,
+  callback = save_window_view,
 })
 
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*",
   command = [[%s/\s\+$//e]],
-})
-
-vim.api.nvim_create_autocmd({'TabLeave'}, {
-  callback = function()
-    vim.b.last_cursor = vim.api.nvim_win_get_cursor(0)
-    vim.b.last_view = vim.fn.winsaveview()
-  end
-})
-
-vim.api.nvim_create_autocmd({'TabEnter'}, {
-  callback = function()
-    if vim.b.last_cursor then
-      vim.api.nvim_win_set_cursor(0, vim.b.last_cursor)
-    end
-    if vim.b.last_view then
-      vim.fn.winrestview(vim.b.last_view)
-    end
-  end,
 })
 
 vim.api.nvim_create_autocmd("CmdlineLeave", {
@@ -112,5 +102,19 @@ vim.api.nvim_create_autocmd("CmdlineLeave", {
       local keys = vim.api.nvim_replace_termcodes("zt10<C-y>", true, false, true)
       vim.api.nvim_feedkeys(keys, "m", false)
     end)
+  end,
+})
+
+vim.g.first_tab_replaced = false
+
+vim.api.nvim_create_autocmd("TabNewEntered", {
+  callback = function()
+    if not vim.g.first_tab_replaced then
+      vim.g.first_tab_replaced = true
+
+      if vim.fn.tabpagenr("$") == 2 then
+        vim.cmd("tabclose 1")
+      end
+    end
   end,
 })

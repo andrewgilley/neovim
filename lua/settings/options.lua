@@ -30,3 +30,7 @@ vim.opt.formatoptions:remove({ "r", "o" })
 vim.opt.shortmess:append 'I'
 vim.opt.guicursor:append('t:ver25')
 vim.opt.fillchars:append({ fold = " " })
+
+vim.opt.hidden = true
+vim.opt.scrollbind = false
+vim.opt.cursorbind = false

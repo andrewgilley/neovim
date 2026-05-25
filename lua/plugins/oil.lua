@@ -17,9 +17,10 @@ return {
 
       keymaps = {
         ["-"] = false,
+        ["<CR>"] = false,
         ["<Backspace>"] = "actions.parent",
         ["j"] = "actions.parent",
-        ["l"] = "actions.select",
+        ["l"] = "actions.select_tab",
         ["q"] = "actions.close",
 
         ["<leader>w"] = {

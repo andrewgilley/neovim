@@ -66,33 +66,93 @@ return {
         },
       },
 
-      extensions = {
-        undo = {
-          side_by_side = false,
-          use_delta = false,
-        },
-      },
+      extensions = {},
     })
 
-    -- vim.keymap.set("n", "gd", require("telescope.builtin").lsp_definitions)
-
     vim.keymap.set("n", "gd", function()
-      vim.lsp.buf.definition()
+      local params = vim.lsp.util.make_position_params()
 
-      vim.defer_fn(function()
-        vim.cmd("normal! zt")
-        vim.api.nvim_feedkeys(
-          vim.api.nvim_replace_termcodes("10<C-y>$", true, false, true),
-          "n",
-          false
-        )
-      end, 50)
+      vim.lsp.buf_request(0, "textDocument/definition", params, function(err, result, ctx)
+        if err or not result or vim.tbl_isempty(result) then
+          return
+        end
+
+        local location = result[1] or result
+
+        vim.cmd("tab split")
+
+        local client = vim.lsp.get_client_by_id(ctx.client_id)
+        local offset_encoding = client and client.offset_encoding or "utf-16"
+
+        vim.lsp.util.jump_to_location(location, offset_encoding, true)
+
+        vim.defer_fn(function()
+          vim.cmd("normal! zt")
+          vim.api.nvim_feedkeys(
+            vim.api.nvim_replace_termcodes("10<C-y>$", true, false, true),
+            "n",
+            false
+          )
+        end, 50)
+      end)
     end)
 
     vim.keymap.set('n', '<leader>te', function() builtin.builtin({
       prompt_title = 'Builtin',
       previewer = false,
     }) end)
+
+    vim.keymap.set("n", "<leader>bt", function()
+      require("telescope.pickers").new({}, {
+        prompt_title = "Tab",
+        preview_title = "Preview",
+
+        layout_config = { preview_width = 0.48 },
+
+        finder = require("telescope.finders").new_table({
+          results = vim.tbl_map(function(i)
+            return {
+              tabnr = i,
+              bufnr = vim.fn.tabpagebuflist(i)[vim.fn.tabpagewinnr(i)],
+              display = vim.fn.fnamemodify(
+                vim.fn.bufname(
+                  vim.fn.tabpagebuflist(i)[vim.fn.tabpagewinnr(i)]
+                ),
+                ":~:."
+              ),
+            }
+          end, vim.fn.range(1, vim.fn.tabpagenr("$"))),
+
+          entry_maker = function(entry)
+            return {
+              value = entry,
+              display = entry.display,
+              ordinal = entry.display,
+              bufnr = entry.bufnr,
+              path = vim.api.nvim_buf_get_name(entry.bufnr),
+            }
+          end,
+        }),
+
+        sorter = require("telescope.config").values.generic_sorter({}),
+
+        previewer = require("telescope.previewers").vim_buffer_cat.new({}),
+
+        attach_mappings = function(prompt_bufnr)
+          require("telescope.actions").select_default:replace(function()
+            vim.cmd(
+              "tabnext "
+              .. require("telescope.actions.state")
+              .get_selected_entry().value.tabnr
+            )
+
+            require("telescope.actions").close(prompt_bufnr)
+          end)
+
+          return true
+        end,
+      }):find()
+    end)
 
     vim.keymap.set('n', '<leader>fd', function() builtin.find_files({
       prompt_title = "File",
@@ -109,62 +169,90 @@ return {
         "%.png$",
         "%.pdb$",
       },
-    }) end)
 
-    vim.keymap.set('n', '<leader>fc', function() builtin.find_files({
-      prompt_title = 'Config',
-      previewer = false,
-      cwd = vim.fn.stdpath('config'),
-      file_ignore_patterns = { "%.json$" },
-    }) end)
+      attach_mappings = function(_, map)
+        actions.select_default:replace(actions.select_tab)
+        return true
+      end,
+    })
+  end)
 
-    vim.keymap.set('n', '<leader>fu', function() builtin.find_files({
-      prompt_title = 'User',
-      preview_title = 'Preview',
-      previewer = true,
+  vim.keymap.set('n', '<leader>fc', function() builtin.find_files({
+    prompt_title = 'Config',
+    previewer = false,
+    cwd = vim.fn.stdpath('config'),
+    file_ignore_patterns = { "%.json$" },
+  }) end)
+
+  vim.keymap.set('n', '<leader>fu', function() builtin.find_files({
+    prompt_title = 'User',
+    preview_title = 'Preview',
+    previewer = true,
+    layout_config = { preview_width = 0.48 },
+    cwd = 'C:/Users/andre',
+  }) end)
+
+  vim.keymap.set('n', '<leader>fh', function() builtin.find_files({
+    prompt_title = 'Drive',
+    cwd = 'C:/',
+  }) end)
+
+  vim.keymap.set("n", "<leader>gf", function()
+    builtin.live_grep({
+      grep_open_files = false,
+      prompt_title = "Grep file",
+      preview_title = "Preview",
+      search_dirs = { vim.fn.expand("%:p") },
       layout_config = { preview_width = 0.48 },
-      cwd = 'C:/Users/andre',
-    }) end)
 
-    vim.keymap.set('n', '<leader>fh', function() builtin.find_files({
-      prompt_title = 'Drive',
-      cwd = 'C:/',
-    }) end)
+      attach_mappings = function(prompt_bufnr, map)
+        local function open_and_center()
+          actions.select_default(prompt_bufnr)
 
-    vim.keymap.set("n", "<leader>gf", function()
-      builtin.live_grep({
-        grep_open_files = false,
-        prompt_title = "Grep file",
-        preview_title = "Preview",
-        search_dirs = { vim.fn.expand("%:p") },
-        layout_config = { preview_width = 0.48 },
+          vim.schedule(function()
+            vim.cmd("normal! zt")
+            vim.api.nvim_feedkeys(
+              vim.api.nvim_replace_termcodes("10<C-y>$", true, false, true),
+              "n",
+              false
+            )
+          end)
+        end
 
-        attach_mappings = function(prompt_bufnr, map)
-          local function open_and_center()
-            actions.select_default(prompt_bufnr)
+        map("i", "<CR>", open_and_center)
+        map("n", "<CR>", open_and_center)
 
-            vim.schedule(function()
-              vim.cmd("normal! zt")
-              vim.api.nvim_feedkeys(
-                vim.api.nvim_replace_termcodes("10<C-y>$", true, false, true),
-                "n",
-                false
-              )
-            end)
-          end
+        return true
+      end,
+    })
+  end)
 
-          map("i", "<CR>", open_and_center)
-          map("n", "<CR>", open_and_center)
-
-          return true
-        end,
-      })
-    end)
-
-    vim.keymap.set('n', '<leader>gd', function() builtin.live_grep({
+  vim.keymap.set('n', '<leader>gd', function()
+    builtin.live_grep({
       prompt_title = 'Grep directory',
       preview_title = 'Preview',
-      layout_config = { preview_width = 0.48 }
+      layout_config = { preview_width = 0.48 },
+
+      attach_mappings = function(prompt_bufnr, map)
+        local function open_and_center()
+          actions.select_default(prompt_bufnr)
+
+          vim.schedule(function()
+            vim.cmd("normal! zt")
+            vim.api.nvim_feedkeys(
+              vim.api.nvim_replace_termcodes("10<C-y>$", true, false, true),
+              "n",
+              false
+            )
+          end)
+        end
+
+        map("i", "<CR>", open_and_center)
+        map("n", "<CR>", open_and_center)
+
+        return true
+      end,
+
     }) end)
 
     vim.keymap.set('n', '<leader>gc', function() builtin.live_grep({

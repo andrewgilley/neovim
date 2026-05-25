@@ -47,5 +47,5 @@ require("lazy").setup({
     notify = false,
   },
 
-  vim.keymap.set('n', '<leader>la', ':Lazy<CR>', { silent = true })
+  vim.keymap.set('n', '<leader>la', ':Lazy<CR>', { silent = true }),
 })

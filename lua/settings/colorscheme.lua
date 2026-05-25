@@ -9,8 +9,7 @@
 -- vim.cmd("colorscheme heap-dark")
 -- vim.cmd("colorscheme onedark")
 -- vim.cmd("colorscheme deepwater")
--- vim.cmd("colorscheme rose-pine")
--- vim.cmd("colorscheme rose-pine-moon")
+vim.cmd("colorscheme rose-pine")
 -- vim.cmd("colorscheme everforest")
 -- vim.cmd("colorscheme wombat")
 -- vim.cmd("colorscheme houston")
@@ -20,7 +19,7 @@
 -- vim.cmd("colorscheme PaperColor")
 -- vim.cmd("colorscheme torte")
 -- vim.cmd("colorscheme desert")
-vim.cmd("colorscheme oc-2")
+-- vim.cmd("colorscheme oc-2")
 
 vim.api.nvim_set_hl(0, "CursorLineNr", { link = 'LineNr' })
 
@@ -29,22 +28,16 @@ vim.api.nvim_set_hl(0, "OilFile", { fg = "#A5D6FF" })
 
 vim.api.nvim_set_hl(0, 'Folded', { fg = 'NONE', bg = 'NONE' })
 
-if vim.g.colors_name == "github_dark" then
-  vim.api.nvim_set_hl(0, "StatusLine", { fg = '#636E7B', bg = 'NONE' })
-  vim.api.nvim_set_hl(0, "StatusLineNC", { fg = '#636E7B', bg = 'NONE' })
-
-  vim.api.nvim_set_hl(0, "WinSeparator", { fg = '#30363D', bg = 'NONE' })
-
-  vim.api.nvim_set_hl(0, "Folded", { bg = "NONE", fg = "#A5D6FF", italic = true })
-end
-
 if vim.g.colors_name == "github_dark_dimmed" then
   vim.api.nvim_set_hl(0, "StatusLine", { fg = '#636E7B', bg = 'NONE' })
   vim.api.nvim_set_hl(0, "StatusLineNC", { fg = '#636E7B', bg = 'NONE' })
 
-  vim.api.nvim_set_hl(0, "WinSeparator", { fg = '#22272E', bg = 'NONE' })
+  vim.api.nvim_set_hl(0, "WinSeparator", { fg = '#636E7B', bg = 'NONE' })
 
   vim.api.nvim_set_hl(0, "Folded", { bg = "NONE", fg = "#A5D6FF", italic = true })
+
+  vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal" })
+  vim.api.nvim_set_hl(0, "FloatBorder", { link = "Normal" })
 end
 
 if vim.g.colors_name == "onedark" then
@@ -127,8 +120,8 @@ if vim.g.colors_name == "oc-2" then
 
     if not winhl:find(normal_map, 1, true) then
       vim.wo[win].winhighlight = winhl == ""
-        and normal_map
-        or winhl .. "," .. normal_map
+      and normal_map
+      or winhl .. "," .. normal_map
     end
   end
 
@@ -155,8 +148,8 @@ if vim.g.colors_name == "oc-2" then
 
       if not winhl:find("Cursor:TelescopePromptCursor", 1, true) then
         vim.wo.winhighlight = winhl == ""
-          and "Cursor:TelescopePromptCursor"
-          or winhl .. ",Cursor:TelescopePromptCursor"
+        and "Cursor:TelescopePromptCursor"
+        or winhl .. ",Cursor:TelescopePromptCursor"
       end
     end,
   })
@@ -300,7 +293,7 @@ if vim.g.colors_name == "rose-pine" then
 
   vim.api.nvim_set_hl(0, "MsgArea", { fg = "#E0DEF4", bg = "NONE"  })
 
-  vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#191724", bg = "NONE" })
+  vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#696580", bg = "NONE" })
 
   vim.api.nvim_set_hl(0, "TelescopeNormal", { link = "Normal" })
   vim.api.nvim_set_hl(0, "TelescopeBorder", { link = "Normal" })

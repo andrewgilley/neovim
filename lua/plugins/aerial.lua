@@ -1,102 +1,131 @@
 return {
-  {
-    "stevearc/aerial.nvim",
-    lazy = false,
+  "stevearc/aerial.nvim",
+  lazy = false,
 
-    dependencies = {
-      "nvim-tree/nvim-web-devicons",
+  dependencies = {
+    "nvim-tree/nvim-web-devicons",
+  },
+
+  opts = {
+    keymaps = {
+      ["<C-k>"] = false,
     },
 
-    opts = {
-      backends = {
-        rust = { "lsp" },
-        ["_"] = { "lsp", "markdown", "asciidoc", "man" },
-      },
+    backends = {
+      rust = { "lsp" },
+      ["_"] = { "lsp", "markdown", "asciidoc", "man" },
+    },
 
-      filter_kind = {
-        "Object",
-        "Class",
-        "Struct",
-        "Enum",
-        "Interface",
-        "Function",
-        "Method",
-        "Module",
-      },
+    filter_kind = {
+      "Object",
+      "Class",
+      "Struct",
+      "Enum",
+      "Interface",
+      "Function",
+      "Method",
+      "Module",
+    },
 
-      post_parse_symbol = function(bufnr, item, ctx)
-        if vim.bo[bufnr].filetype ~= "rust" then
-          return true
-        end
-
-        if ctx.backend_name ~= "lsp" then
-          return true
-        end
-
-        if type(item.name) ~= "string" then
-          return true
-        end
-
-        local function compact_impl_name(name)
-          if not name:match("^impl%s+") then
-            return nil
-          end
-
-          local rest = name:gsub("^impl%s+", "")
-
-          -- Strip leading generic params:
-          -- impl<T> Foo<T> -> Foo<T>
-          if rest:sub(1, 1) == "<" then
-            local depth = 0
-
-            for i = 1, #rest do
-              local ch = rest:sub(i, i)
-
-              if ch == "<" then
-                depth = depth + 1
-              elseif ch == ">" then
-                depth = depth - 1
-              elseif depth == 0 and ch:match("%s") then
-                rest = rest:sub(i + 1):gsub("^%s+", "")
-                break
-              end
-            end
-          end
-
-          local direct_name = rest:match("^([%w_:]+)")
-
-          if direct_name then
-            return direct_name
-          end
-
-          return nil
-        end
-
-        local new_name = compact_impl_name(item.name)
-        if new_name then
-          item.name = new_name
-          return true
-        end
-
+    post_parse_symbol = function(bufnr, item, ctx)
+      if ctx.backend_name ~= "lsp" then
         return true
-      end,
+      end
 
-      layout = {
-        min_width = 30,
-        default_direction = "right",
+      if type(item.name) ~= "string" then
+        return true
+      end
 
-        win_opts = {
-          statusline = "[aerial]",
-        },
+      local max_title_len = 23
+
+      local function truncate_name()
+        if vim.fn.strchars(item.name) > max_title_len then
+          item.name = vim.fn.strcharpart(item.name, 0, max_title_len - 3) .. "..."
+        end
+      end
+
+      local cpp_like_filetypes = {
+        cpp = true,
+        c = true,
+        cuda = true,
+      }
+
+      if cpp_like_filetypes[vim.bo[bufnr].filetype] then
+        if item.kind == "Function"
+          or item.kind == "Method"
+          or item.kind == "Constructor"
+        then
+          item.name = item.name:gsub("^.*::", "")
+        end
+
+        truncate_name()
+        return true
+      end
+
+      if vim.bo[bufnr].filetype == "go" then
+        local receiver, method = item.name:match("^%((.-)%)%.(.+)$")
+
+        if receiver and method then
+          item.name = string.format("(%s) %s", receiver, method)
+        end
+
+        truncate_name()
+        return true
+      end
+
+      if vim.bo[bufnr].filetype ~= "rust" then
+        truncate_name()
+        return true
+      end
+
+      local function compact_impl_name(name)
+        return name
+      end
+
+      local new_name = compact_impl_name(item.name)
+      if new_name then
+        item.name = new_name
+      end
+
+      truncate_name()
+      return true
+    end,
+
+    layout = {
+      min_width = 30,
+      width = 33,
+      resize_to_content = true,
+      default_direction = "right",
+
+      win_opts = {
+        statusline = "[aerial]",
       },
-
-      autojump = true,
-      highlight_on_hover = true,
-      post_jump_cmd = "normal! zt10\025",
     },
 
-    keys = {
-      { "<leader>ae", "<cmd>AerialToggle!<CR>" },
-    },
+    autojump = true,
+    highlight_on_jump = false,
+    highlight_on_hover = false,
+    post_jump_cmd = "normal! zt10\025$",
+  },
+
+  config = function(_, opts)
+    require("aerial").setup(opts)
+
+    --vim.api.nvim_create_autocmd("BufReadPost", {
+    --  callback = function(args)
+    --    if vim.bo[args.buf].buftype ~= "" then
+    --      return
+    --    end
+
+    --    require("aerial").open({
+    --      focus = false,
+    --      direction = "right",
+    --    })
+    --  end,
+    --})
+  end,
+
+  keys = {
+    { "<leader>ae", "<cmd>AerialToggle!<CR>" },
   },
 }

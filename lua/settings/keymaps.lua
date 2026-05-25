@@ -1,17 +1,13 @@
 vim.keymap.set({ "n", "v", "o", "x" }, "i", "k", { nowait = true })
 vim.keymap.set({ "n", "v", "o", "x" }, "k", "j", { nowait = true })
 vim.keymap.set({ "n", "v", "o", "x" }, "j", "h", { nowait = true })
-
 vim.keymap.set('n', 'n', 'i', { noremap = true, nowait = true })
 vim.keymap.set('x', 'y', 'myy`y', { noremap = true })
 vim.keymap.set('n', 'L', '}k$', { noremap = true, silent = true })
 vim.keymap.set('n', 'q', ':nohlsearch<CR>', { silent = true })
 vim.keymap.set('n', 'u', ':<C-u>silent undo<CR>', { noremap = true, silent = true })
-
 vim.keymap.set({ 'n', 'v' }, '-', '$', { silent = false })
-
 vim.keymap.set('n', '<', '<<', { noremap = true, silent = true })
-
 vim.keymap.set('n', 'cw', 'ciw', { silent = true })
 vim.keymap.set('n', 'cp', 'cib', { silent = true })
 vim.keymap.set('n', 'cb', 'ci{', { silent = true })
@@ -19,7 +15,6 @@ vim.keymap.set('n', 'cs', 'ci\'', { silent = true })
 vim.keymap.set('n', 'cd', 'ci"', { silent = true })
 vim.keymap.set('n', 'ca', 'ci<', { silent = true })
 vim.keymap.set('n', 'cr', 'ci[', { silent = true })
-
 vim.keymap.set('n', 'dw', 'daw', { silent = true })
 vim.keymap.set('n', 'dp', 'dap', { silent = true })
 vim.keymap.set('n', 'yy', '<Nop>', { noremap = true, silent = true })
@@ -28,25 +23,20 @@ vim.keymap.set('n', 'cl', 'yy', { noremap = true, silent = true })
 vim.keymap.set('n', 'dl', 'dd', { noremap = true, silent = true })
 vim.keymap.set('n', 'zO', 'zR', { noremap = true, silent = true })
 vim.keymap.set('n', 'zC', 'zM', { noremap = true, silent = true })
-
+vim.keymap.set({ 'n', 'v' }, 'gt', 'gg0', { silent = true })
 vim.keymap.set({ 'n', 'v' }, 'gb', 'G', { silent = true })
 vim.keymap.set({ 'n', 'v' }, 'gs', '^', { silent = true })
 vim.keymap.set({ 'n', 'v' }, 'gl', '$', { silent = true })
-
 vim.keymap.set("n", "<C-]>", "n zt10<C-y>$", { silent = true })
 vim.keymap.set("n", "<C-[>", "N", { silent = true })
 vim.keymap.set("n", "<S-o>", "o<Esc>o", { noremap = true })
 vim.keymap.set("n", "<A-o>", "<S-o>", { noremap = true })
-
 vim.keymap.set({ 'n', 'x' }, '<C-i>', '10k', { silent = true })
 vim.keymap.set({ 'n', 'x' }, '<C-k>', '10j', { silent = true })
-
 vim.keymap.set('n', '<S-i>', '<C-y>', { silent = true })
 vim.keymap.set('n', '<S-k>', '<C-e>', { silent = true })
-
 vim.keymap.set({ 'n', 'v' }, '<C-l>', '10l', { silent = true })
 vim.keymap.set({ 'n', 'v' }, '<C-j>', '10h', { silent = true })
-
 vim.keymap.set('n', '<C-z>', 'zh')
 vim.keymap.set('n', '<C-x>', 'zl')
 vim.keymap.set('n', '<C-s>', '<C-w>r')
@@ -60,29 +50,28 @@ vim.keymap.set('c', '<C-p>', '<C-r>+')
 vim.keymap.set("n", "<S-p>", "o<Esc>p")
 vim.keymap.set('v', '<C-y>', '"+y', { silent = true })
 vim.keymap.set('n', '<C-a>', '<C-w>w', { silent = true })
-
-vim.keymap.set({ 'n', 'i' }, '<S-3>', '<Esc>:tabn<CR>', { silent = true })
-vim.keymap.set({ 'n', 'i' }, '<S-1>', '<Esc>:tabp<CR>', { silent = true })
-
 vim.keymap.set('t', '<C-d>', [[<C-\><C-n>]])
-
 vim.keymap.set({ 'n', 'i', 'x' }, '<C-Up>', '10k', { silent = true })
 vim.keymap.set({ 'n', 'i', 'x' }, '<S-Up>', '<C-y>', { silent = true })
-
 vim.keymap.set('n', '<S-C-i>', '10<C-y>', { silent = true })
 vim.keymap.set('n', '<S-C-k>', '10<C-e>', { silent = true })
 
-vim.keymap.set({ 'n', 'i' }, '<C-Tab>', '<Esc>:bn<CR>', { silent = true })
-vim.keymap.set({ 'n', 'i' }, '<S-Tab>', '<Esc>:bp<CR>', { silent = true })
+vim.keymap.set({ 'n', 'i' }, '<C-Tab>', function()
+  vim.cmd('tabnext ' .. ((vim.fn.tabpagenr() % vim.fn.tabpagenr('$')) + 1))
+end, { silent = true })
+
+vim.keymap.set({ 'n', 'i' }, '<C-S-Tab>', function()
+  local current = vim.fn.tabpagenr()
+  local total = vim.fn.tabpagenr('$')
+  vim.cmd('tabnext ' .. ((current - 2 + total) % total + 1))
+end, { silent = true })
 
 vim.keymap.set({ 'n', 'i', 'x' }, '<C-Down>', '10j', { silent = true })
 vim.keymap.set({ 'n', 'i', 'x' }, '<S-Down>', '<C-e>', { silent = true })
 vim.keymap.set({ 'n', 'i', 'x' }, '<S-C-Up>', '10<C-y>', { silent = true })
 vim.keymap.set({ 'n', 'i' }, '<C-Left>', '10h', { silent = true })
-
 vim.keymap.set('n', '<leader>w', ':silent w<CR>', { silent = true })
 vim.keymap.set('n', '<leader>q', ':silent q<CR>', { silent = true })
-
 vim.keymap.set({ 'n', 'i' }, '<C-Right>', '10l', { silent = true })
 vim.keymap.set({ 'n', 'x' }, '<leader>ze', '0')
 vim.keymap.set({ 'n', 'x' }, '<leader>on', '1')
@@ -94,18 +83,11 @@ vim.keymap.set({ 'n', 'x' }, '<leader>si', '6')
 vim.keymap.set({ 'n', 'x' }, '<leader>se', '7')
 vim.keymap.set({ 'n', 'x' }, '<leader>ei', '8')
 vim.keymap.set({ 'n', 'x' }, '<leader>ni', '9')
-
 vim.keymap.set('n', '<leader>aw', ':silent w!<CR>:<CR>', { silent = true })
 vim.keymap.set('n', '<leader>aq', ':q!<CR>')
 vim.keymap.set('n', '<leader>as', 'A;<Esc>', { noremap = true, silent = true })
-
 vim.keymap.set({ 'n', 'i', 'x' }, '<S-C-Down>', '10<C-e>', { silent = true })
-
-vim.keymap.set('n', '<leader>sz', '^hzs$')
-vim.keymap.set('n', '<leader>st', 'zt5<C-y>$', { noremap = true })
 vim.keymap.set('n', '<leader>sc', 'zt10<C-y>$', { noremap = true })
-vim.keymap.set('n', '<leader>sm', 'zt10<C-y>$', { noremap = true })
-vim.keymap.set('n', '<leader>sb', 'zt25<C-y>$', { noremap = true })
 vim.keymap.set('n', '<leader>sr', ':silent source .session.vim<CR>', { silent = true })
 vim.keymap.set('n', '<leader>ew', '<C-w>=')
 vim.keymap.set('n', '<leader>so', ':silent w<CR>:so<CR>', { silent = true })
@@ -113,23 +95,78 @@ vim.keymap.set('n', '<leader>co', 'gcc', { remap = true, silent = true })
 vim.keymap.set('n', '<leader>vs', ':vs<CR>', { silent = true })
 vim.keymap.set('n', '<leader>hs', ':split<CR>', { silent = true })
 vim.keymap.set('n', '<leader>ma', ':Mason<CR>' , { silent = true })
-
 vim.keymap.set({ 'n', 'i' }, '<leader>tn', '<Esc>:tabn<CR>', { silent = true })
 vim.keymap.set({ 'n', 'i' }, '<leader>tp', '<Esc>:tabp<CR>', { silent = true })
-
-vim.keymap.set('n', '<leader>td', ':tab split<CR>', { silent = true })
-
-vim.keymap.set({ 'n', 'i' }, '<leader>bn', '<Esc>:bn<CR>', { silent = true })
-vim.keymap.set({ 'n', 'i' }, '<leader>bp', '<Esc>:bp<CR>', { silent = true })
-
+vim.keymap.set("n", "<leader>td", ":tabclose<CR>", { silent = true })
+vim.keymap.set("n", "<leader>tr", function()
+  vim.cmd("tab split")
+end, { desc = "Duplicate current tab" })
 vim.keymap.set('n', '<leader>bd', ':bd<CR>', { silent = true })
-vim.keymap.set('n', '<leader>ba', ':b#<CR>', { silent = true })
 vim.keymap.set('n', '<leader>in', 'mzgg=G``zzzt10<C-y>$', { silent = true })
-
 vim.keymap.set({ 'n', 'v' }, '<leader>br', '%', { remap = true })
-
 vim.keymap.set('n', '<leader>en', ':enew<CR>', { silent = true })
 vim.keymap.set('n', '<leader>eh', ':lua vim.diagnostic.enable(false, { bufnr = 0 })<CR>', { silent = true })
 vim.keymap.set('n', '<leader>lsp', ':checkhealth vim.lsp<CR>', { silent = true })
 vim.keymap.set('n', '<leader>cpd', ':cd ..<CR>:pwd<CR>', { silent = true })
 vim.keymap.set('n', '<leader>pwd', ':pwd<CR>', { silent = true })
+
+vim.keymap.set("n", "<leader>cd", function()
+  local ok, dir = pcall(vim.fn.input, ":", "", "dir")
+
+  if not ok or dir == nil or dir == "" then
+    return
+  end
+
+  vim.cmd.cd(vim.fn.fnameescape(dir))
+  vim.notify("")
+end, { desc = "Change cwd" })
+
+vim.keymap.set("n", "<leader>gi", function()
+  if vim.fn.systemlist("git config --get remote.origin.url")[1] == nil
+    or vim.fn.systemlist("git config --get remote.origin.url")[1] == "" then
+    vim.notify("No git remote found", vim.log.levels.WARN)
+    return
+  end
+
+  vim.system({
+    vim.env.ComSpec or "cmd.exe",
+    "/c",
+    "start",
+    "",
+    "msedge",
+    "--new-window",
+    vim.fn.systemlist("git config --get remote.origin.url")[1]
+    :gsub("%.git$", "")
+    :gsub("^git@github.com:", "https://github.com/")
+    :gsub("^ssh://git@github.com/", "https://github.com/")
+    :gsub("^https://github.com/", "https://github.com/")
+    .. "/issues",
+  }, { detach = true })
+end, {
+desc = "Open GitHub issues for current project",
+})
+
+vim.keymap.set("n", "<leader>gp", function()
+  if vim.fn.systemlist("git config --get remote.origin.url")[1] == nil
+    or vim.fn.systemlist("git config --get remote.origin.url")[1] == "" then
+    vim.notify("No git remote found", vim.log.levels.WARN)
+    return
+  end
+
+  vim.system({
+    vim.env.ComSpec or "cmd.exe",
+    "/c",
+    "start",
+    "",
+    "msedge",
+    "--new-window",
+    vim.fn.systemlist("git config --get remote.origin.url")[1]
+    :gsub("%.git$", "")
+    :gsub("^git@github.com:", "https://github.com/")
+    :gsub("^ssh://git@github.com/", "https://github.com/")
+    :gsub("^https://github.com/", "https://github.com/")
+    .. "/pulls",
+  }, { detach = true })
+end, {
+desc = "Open GitHub pull requests for current project",
+})
