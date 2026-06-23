@@ -1,7 +1,16 @@
 return {
   'nvim-treesitter/nvim-treesitter',
-  branch = "main",
-  lazy = false,
+  branch = "master",
+
+  event = {
+    "BufNewFile",
+    "BufReadPost",
+  },
+
+  cmd = {
+    "TSUpdate",
+  },
+
   build = ':TSUpdate',
 
   dependencies = {
@@ -27,20 +36,14 @@ return {
       "java",
       "c",
       "cpp",
+      "prisma",
+      "odin",
     },
 
     textobjects = {
       move = {
         enable = true,
         set_jumps = true,
-
-        goto_next_start = {
-          ["<S-]>"] = "@function.inner",
-        },
-
-        goto_previous_start = {
-          ["<S-[>"] = "@function.inner",
-        },
       },
     },
   },

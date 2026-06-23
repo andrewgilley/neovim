@@ -8,7 +8,6 @@ return {
         },
       },
     },
-
   },
 
   {
@@ -20,6 +19,7 @@ return {
         "ts_ls",
         "rust_analyzer",
         "clangd",
+        "zls",
       },
     },
   },
@@ -34,7 +34,7 @@ return {
         "rust_analyzer",
         "clangd",
         "jdtls",
-        "ltex_plus"
+        "zls",
       }
 
       local capabilities = require('blink.cmp').get_lsp_capabilities()
@@ -52,18 +52,13 @@ return {
           Lua = {
             diagnostics = {
               globals = { "vim" },
+              disable = { "unused-local" },
             },
           },
         },
       }
 
-      vim.lsp.config["ltex_plus"] = {
-        enabled = true,
-        enableCompletion = true,
-        filetypes = { "markdown", "tex", "text", "plaintex", "typst" },
-        capabilities = capabilities,
-      }
-
+      vim.lsp.enable(servers)
     end
   },
 

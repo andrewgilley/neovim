@@ -84,7 +84,10 @@ return {
         local client = vim.lsp.get_client_by_id(ctx.client_id)
         local offset_encoding = client and client.offset_encoding or "utf-16"
 
-        vim.lsp.util.jump_to_location(location, offset_encoding, true)
+        vim.lsp.util.show_document(location, offset_encoding, {
+          focus = true,
+          reuse_win = true,
+        })
 
         vim.defer_fn(function()
           vim.cmd("normal! zt")
@@ -99,12 +102,14 @@ return {
 
     vim.keymap.set('n', '<leader>te', function() builtin.builtin({
       prompt_title = 'Builtin',
+      results_title = false,
       previewer = false,
     }) end)
 
-    vim.keymap.set("n", "<leader>bt", function()
+    vim.keymap.set("n", "<leader>bf", function()
       require("telescope.pickers").new({}, {
         prompt_title = "Tab",
+        results_title = false,
         preview_title = "Preview",
 
         layout_config = { preview_width = 0.48 },
@@ -135,7 +140,6 @@ return {
         }),
 
         sorter = require("telescope.config").values.generic_sorter({}),
-
         previewer = require("telescope.previewers").vim_buffer_cat.new({}),
 
         attach_mappings = function(prompt_bufnr)
@@ -155,10 +159,11 @@ return {
     end)
 
     vim.keymap.set('n', '<leader>fd', function() builtin.find_files({
-      prompt_title = "File",
       initial_mode = 'insert',
       previewer = true,
-      preview_title = 'Preview',
+      preview_title = "Preview",
+      results_title = false,
+      prompt_title = "File",
       layout_config = { preview_width = 0.48 },
       file_ignore_patterns = {
         "%.class$",
@@ -171,17 +176,25 @@ return {
       },
 
       attach_mappings = function(_, map)
-        actions.select_default:replace(actions.select_tab)
+        map("i", "<CR>", actions.select_tab)
         return true
       end,
     })
   end)
 
   vim.keymap.set('n', '<leader>fc', function() builtin.find_files({
-    prompt_title = 'Config',
-    previewer = false,
+    prompt_title = "Config",
+    previewer = true,
+    preview_title = 'Preview',
+    results_title = false,
+    layout_config = { preview_width = 0.48 },
     cwd = vim.fn.stdpath('config'),
     file_ignore_patterns = { "%.json$" },
+
+    attach_mappings = function(_, map)
+      map("i", "<CR>", actions.select_tab)
+      return true
+    end,
   }) end)
 
   vim.keymap.set('n', '<leader>fu', function() builtin.find_files({
@@ -190,11 +203,24 @@ return {
     previewer = true,
     layout_config = { preview_width = 0.48 },
     cwd = 'C:/Users/andre',
+
+    attach_mappings = function(_, map)
+      map("i", "<CR>", actions.select_tab)
+      map("n", "<CR>", actions.select_tab)
+      return true
+    end,
   }) end)
 
   vim.keymap.set('n', '<leader>fh', function() builtin.find_files({
     prompt_title = 'Drive',
     cwd = 'C:/',
+
+    attach_mappings = function(_, map)
+      map("i", "<CR>", actions.select_tab)
+      map("n", "<CR>", actions.select_tab)
+      return true
+    end,
+
   }) end)
 
   vim.keymap.set("n", "<leader>gf", function()
@@ -202,6 +228,7 @@ return {
       grep_open_files = false,
       prompt_title = "Grep file",
       preview_title = "Preview",
+      results_title = false,
       search_dirs = { vim.fn.expand("%:p") },
       layout_config = { preview_width = 0.48 },
 
@@ -231,11 +258,12 @@ return {
     builtin.live_grep({
       prompt_title = 'Grep directory',
       preview_title = 'Preview',
+      results_title = false,
       layout_config = { preview_width = 0.48 },
 
       attach_mappings = function(prompt_bufnr, map)
         local function open_and_center()
-          actions.select_default(prompt_bufnr)
+          actions.select_tab(prompt_bufnr)
 
           vim.schedule(function()
             vim.cmd("normal! zt")
@@ -257,6 +285,8 @@ return {
 
     vim.keymap.set('n', '<leader>gc', function() builtin.live_grep({
       prompt_title = 'Grep config',
+      results_title = false,
+      preview_title = "Preview",
       cwd = vim.fn.stdpath('config'),
       layout_config = { preview_width = 0.48 }
     }) end)
@@ -267,13 +297,13 @@ return {
       layout_config = { preview_width = 0.48 }
     }) end)
 
-    vim.keymap.set('n', '<leader>ga', function() builtin.live_grep({
+    vim.keymap.set('n', '<leader>gh', function() builtin.live_grep({
       prompt_title = 'Grep drive',
       cwd = 'C:/',
       layout_config = { preview_width = 0.48 }
     }) end)
 
-    vim.keymap.set('n', '<leader>bf', function() builtin.buffers({
+    vim.keymap.set('n', '<leader>bu', function() builtin.buffers({
       preview_title = "Preview",
       initial_mode = 'insert',
       previewer = true,
@@ -282,7 +312,9 @@ return {
 
     vim.keymap.set("n", "<leader>tb", function()
       require("telescope").extensions.toggleterm_manager.toggleterm_manager({
-        initial_mode = "normal",
+        initial_mode = "insert",
+        prompt_title = "Terminal",
+        results_title = false,
         layout_config = {
           preview_width = 0.48,
         },

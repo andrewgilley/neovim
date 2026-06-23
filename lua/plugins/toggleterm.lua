@@ -31,6 +31,8 @@ return {
     },
 
     keys = {
+      { "<leader>to", ":TermNew dir=%:p:h<CR>" },
+
       {
         "<C-.>",
         function()
@@ -58,8 +60,6 @@ return {
         end,
         mode = "t",
       },
-
-      { "<leader>to", ":TermNew dir=%:p:h<CR>" },
     },
   },
 }

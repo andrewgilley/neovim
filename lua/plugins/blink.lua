@@ -22,12 +22,13 @@ return {
     },
 
     keymap = {
-      preset = "none" ,
+      preset = "none",
       ['<Tab>'] = { 'select_next', 'fallback' },
       ['<S-Tab>'] = { 'select_prev', 'fallback' },
       ['<C-,>'] = { 'show', 'fallback' },
-      ['<CR>'] = { 'accept', 'fallback' },
       ['<C-q>'] = { 'hide', 'fallback' },
+
+      ['<CR>'] = { 'accept', 'fallback' },
     },
 
     appearance = {

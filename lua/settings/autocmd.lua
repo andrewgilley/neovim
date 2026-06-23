@@ -33,7 +33,7 @@ vim.api.nvim_create_autocmd('FileType', {
     'html', 'css', 'js', 'json',
     'jsx', 'ts', 'tsx', 'typescript',
     'typescriptreact', 'lua', 'toml',
-    'autohotkey'
+    'autohotkey', 'ocaml'
   },
 
   callback = function()
@@ -47,7 +47,7 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = {
     'zig', 'c', 'cpp', 'cc', 'hpp',
     'python', 'java', 'javascript', 'ps1',
-    'text', 'dosbatch'
+    'text', 'dosbatch', 'odin', 'glsl'
   },
 
   callback = function()
@@ -67,54 +67,89 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
-vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter", "TabEnter" }, {
-  group = restore_view_group,
-  callback = restore_window_view,
-})
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("treesitter_start", { clear = true }),
+  callback = function(args)
+    local bufnr = args.buf
+    local name = vim.api.nvim_buf_get_name(bufnr)
 
-vim.api.nvim_create_autocmd({ "BufLeave", "WinLeave", "TabLeave" }, {
-  group = restore_view_group,
-  callback = save_window_view,
-})
-
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*",
-  command = [[%s/\s\+$//e]],
-})
-
-vim.api.nvim_create_autocmd("CmdlineLeave", {
-  group = vim.api.nvim_create_augroup("ClearSearchOnEnter", { clear = true }),
-  callback = function()
-    local cmd_type = vim.fn.getcmdtype()
-    if cmd_type == "/" or cmd_type == "?" then
-      vim.schedule(function()
-        vim.opt.cmdheight = 0
-        vim.opt.cmdheight = 1
-      end)
+    if name == "" then
+      return
     end
+
+    local ok, stats = pcall(vim.uv.fs_stat, name)
+    if ok and stats and stats.size > 1024 * 1024 then
+      return
+    end
+
+    pcall(vim.treesitter.start, bufnr)
   end,
 })
 
-vim.api.nvim_create_autocmd("CmdlineLeave", {
-  pattern = "/",
+vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
     vim.schedule(function()
-      local keys = vim.api.nvim_replace_termcodes("zt10<C-y>", true, false, true)
-      vim.api.nvim_feedkeys(keys, "m", false)
-    end)
-  end,
-})
-
-vim.g.first_tab_replaced = false
-
-vim.api.nvim_create_autocmd("TabNewEntered", {
-  callback = function()
-    if not vim.g.first_tab_replaced then
-      vim.g.first_tab_replaced = true
-
-      if vim.fn.tabpagenr("$") == 2 then
-        vim.cmd("tabclose 1")
-      end
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(
+        "<leader>cl", true, false, true), "m", false)
+      end)
     end
-  end,
-})
+  })
+
+  vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter", "TabEnter" }, {
+    group = restore_view_group,
+    callback = restore_window_view,
+  })
+
+  vim.api.nvim_create_autocmd({ "BufLeave", "WinLeave", "TabLeave" }, {
+    group = restore_view_group,
+    callback = save_window_view,
+  })
+
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    pattern = "*",
+    command = [[%s/\s\+$//e]],
+  })
+
+  vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+    pattern = "*.CPP",
+    callback = function()
+      vim.bo.filetype = "cpp"
+    end,
+  })
+
+  vim.api.nvim_create_autocmd("CmdlineLeave", {
+    group = vim.api.nvim_create_augroup("ClearSearchOnEnter", { clear = true }),
+    callback = function()
+      local cmd_type = vim.fn.getcmdtype()
+      if cmd_type == "/" or cmd_type == "?" then
+        vim.schedule(function()
+          vim.opt.cmdheight = 0
+          vim.opt.cmdheight = 1
+        end)
+      end
+    end,
+  })
+
+  vim.api.nvim_create_autocmd("CmdlineLeave", {
+    pattern = "/",
+    callback = function()
+      vim.schedule(function()
+        local keys = vim.api.nvim_replace_termcodes("zt10<C-y>", true, false, true)
+        vim.api.nvim_feedkeys(keys, "m", false)
+      end)
+    end,
+  })
+
+  vim.g.first_tab_replaced = false
+
+  vim.api.nvim_create_autocmd("TabNewEntered", {
+    callback = function()
+      if not vim.g.first_tab_replaced then
+        vim.g.first_tab_replaced = true
+
+        if vim.fn.tabpagenr("$") == 2 then
+          vim.cmd("tabclose 1")
+        end
+      end
+    end,
+  })

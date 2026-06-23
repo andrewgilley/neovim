@@ -1,14 +1,26 @@
 return {
   "stevearc/aerial.nvim",
-  lazy = false,
+  cmd = {
+    "AerialClose",
+    "AerialOpen",
+    "AerialToggle",
+  },
 
   dependencies = {
     "nvim-tree/nvim-web-devicons",
   },
 
+  keys = {
+    { "<leader>ae", "<cmd>AerialToggle!<CR>" },
+  },
+
   opts = {
+    disable_max_lines = 0,
+
     keymaps = {
       ["<C-k>"] = false,
+      ["<CR>"] = "actions.jump",
+      ["<BS>"] = { callback = function() vim.cmd("normal! k^") end},
     },
 
     backends = {
@@ -27,73 +39,10 @@ return {
       "Module",
     },
 
-    post_parse_symbol = function(bufnr, item, ctx)
-      if ctx.backend_name ~= "lsp" then
-        return true
-      end
-
-      if type(item.name) ~= "string" then
-        return true
-      end
-
-      local max_title_len = 23
-
-      local function truncate_name()
-        if vim.fn.strchars(item.name) > max_title_len then
-          item.name = vim.fn.strcharpart(item.name, 0, max_title_len - 3) .. "..."
-        end
-      end
-
-      local cpp_like_filetypes = {
-        cpp = true,
-        c = true,
-        cuda = true,
-      }
-
-      if cpp_like_filetypes[vim.bo[bufnr].filetype] then
-        if item.kind == "Function"
-          or item.kind == "Method"
-          or item.kind == "Constructor"
-        then
-          item.name = item.name:gsub("^.*::", "")
-        end
-
-        truncate_name()
-        return true
-      end
-
-      if vim.bo[bufnr].filetype == "go" then
-        local receiver, method = item.name:match("^%((.-)%)%.(.+)$")
-
-        if receiver and method then
-          item.name = string.format("(%s) %s", receiver, method)
-        end
-
-        truncate_name()
-        return true
-      end
-
-      if vim.bo[bufnr].filetype ~= "rust" then
-        truncate_name()
-        return true
-      end
-
-      local function compact_impl_name(name)
-        return name
-      end
-
-      local new_name = compact_impl_name(item.name)
-      if new_name then
-        item.name = new_name
-      end
-
-      truncate_name()
-      return true
-    end,
-
     layout = {
-      min_width = 30,
-      width = 33,
+      width = 27,
+      min_width = 0,
+      max_width = 300,
       resize_to_content = true,
       default_direction = "right",
 
@@ -106,26 +55,42 @@ return {
     highlight_on_jump = false,
     highlight_on_hover = false,
     post_jump_cmd = "normal! zt10\025$",
-  },
 
-  config = function(_, opts)
-    require("aerial").setup(opts)
+    post_parse_symbol = function(bufnr, item)
+      local ft = vim.bo[bufnr].filetype
 
-    --vim.api.nvim_create_autocmd("BufReadPost", {
-    --  callback = function(args)
-    --    if vim.bo[args.buf].buftype ~= "" then
-    --      return
-    --    end
+      if vim.tbl_contains({
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+      }, ft) then
+      item.name = item.name:gsub("%s+callback%s*%d*$", "")
 
-    --    require("aerial").open({
-    --      focus = false,
-    --      direction = "right",
-    --    })
-    --  end,
-    --})
+      item.name = item.name:gsub("^(%s*)(describe)%s*%b()", "%1%2()")
+      item.name = item.name:gsub("^(%s*)(it)%s*%b()", "%1%2()")
+    elseif ft == "rust" then
+      item.name = item.name:gsub("^(impl%s+.-)%s+for%s+.*$", "%1")
+      item.name = item.name:gsub("^impl%s+for%s+.*$", "impl")
+    end
+
+    local max_len = 22
+    local suffix = ".."
+
+    if item.name and vim.fn.strcharlen(item.name) > max_len then
+      item.name = vim.fn.strcharpart(
+        item.name,
+        0,
+        max_len - vim.fn.strcharlen(suffix)
+      ) .. suffix
+    end
+
+    return true
   end,
+},
 
-  keys = {
-    { "<leader>ae", "<cmd>AerialToggle!<CR>" },
-  },
+config = function(_, opts)
+  vim.opt.splitkeep = "cursor"
+  require("aerial").setup(opts)
+end,
 }

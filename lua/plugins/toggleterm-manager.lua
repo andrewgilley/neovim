@@ -1,10 +1,13 @@
 return {
   "ryanmsnyder/toggleterm-manager.nvim",
+  cmd = "ToggleTermManager",
+
   dependencies = {
     "akinsho/toggleterm.nvim",
     "nvim-telescope/telescope.nvim",
     "nvim-lua/plenary.nvim",
   },
+
   config = function()
     local actions = require("toggleterm-manager").actions
     require("toggleterm-manager").setup({
