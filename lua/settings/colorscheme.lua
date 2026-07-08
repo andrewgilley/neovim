@@ -8,8 +8,15 @@ local hl = vim.api.nvim_set_hl
 -- cmd("colorscheme dracula")
 -- cmd("colorscheme rose-pine")
 -- cmd("colorscheme material")
-cmd("colorscheme material-darker")
+-- cmd("colorscheme material-darker")
 -- cmd("colorscheme sitruuna")
+--
+cmd("colorscheme st")
+-- cmd("colorscheme kg")
+-- cmd("colorscheme dc")
+-- cmd("colorscheme tk")
+-- cmd("colorscheme gn")
+-- cmd("colorscheme nd")
 
 hl(0, "CursorLineNr", { link = 'LineNr' })
 
@@ -158,7 +165,9 @@ if colorscheme == "kanagawa" then
   hl(0, "FloatBorder", { fg = "NONE", bg = "#1F1F28"})
 
   hl(0, "TelescopeNormal", { link = "Normal" })
-  hl(0, "TelescopeBorder", { link = "Normal" })
+  -- hl(0, "TelescopeBorder", { fg = "Normal" })
+  hl(0, "TelescopeBorder", { fg = "#DCD7BA" })
+  -- hl(0, "TelescopeBorder", { fg = "#FFFFFF" })
 
   hl(0, "WinSeparator", { fg = "#5D5D78", bg = "NONE" })
 end

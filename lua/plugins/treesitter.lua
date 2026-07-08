@@ -38,6 +38,7 @@ return {
       "cpp",
       "prisma",
       "odin",
+      "zig",
     },
 
     textobjects = {

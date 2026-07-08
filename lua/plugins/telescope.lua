@@ -15,21 +15,33 @@ return {
       defaults = {
         mappings = {
           i = {
+            ["<Tab>"] = actions.move_selection_previous,
+            ["<C-d>"] = actions.delete_buffer,
+
             ["<C-k>"] = actions.move_selection_next,
             ["<C-i>"] = actions.move_selection_previous,
             ["<C-Up>"] = actions.move_selection_next,
             ["<C-Down>"] = actions.move_selection_previous,
-            ["<C-d>"] = actions.delete_buffer,
-            ["<Tab>"] = actions.move_selection_previous,
+
+            ["<A-i>"] = actions.preview_scrolling_up,
+            ["<A-k>"] = actions.preview_scrolling_down,
+            ["<A-j>"] = actions.preview_scrolling_left,
+            ["<A-l>"] = actions.preview_scrolling_right,
           },
 
           n = {
-            ['i'] = actions.move_selection_previous,
-            ['k'] = actions.move_selection_next,
-            ['l'] = actions.select_default,
-            ['j'] = actions.close,
-            ['<C-c>'] = actions.close,
-            ['<C-d>'] = actions.delete_buffer,
+            ["<C-c>"] = actions.close,
+            ["<C-d>"] = actions.delete_buffer,
+
+            ["i"] = actions.move_selection_previous,
+            ["k"] = actions.move_selection_next,
+            ["l"] = actions.select_default,
+            ["j"] = actions.close,
+
+            ["<A-i>"] = actions.preview_scrolling_up,
+            ["<A-k>"] = actions.preview_scrolling_down,
+            ["<A-j>"] = actions.preview_scrolling_left,
+            ["<A-l>"] = actions.preview_scrolling_right,
           },
         },
 

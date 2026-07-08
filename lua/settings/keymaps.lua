@@ -19,8 +19,8 @@ set('n', 'cl', 'yy', { silent = true })
 set('n', 'dl', 'dd', { silent = true })
 set('n', 'zO', 'zR', { silent = true })
 set('n', 'zC', 'zM', { silent = true })
--- set("n", "<C-]>", "n zt10<C-y>$", { silent = true })
--- set("n", "<C-[>", "N", { silent = true })
+set("n", "<C-]>", "n zt10<C-y>$", { silent = true })
+set("n", "<C-[>", "N", { silent = true })
 set("n", "<S-o>", "o<Esc>o")
 set("n", "<A-o>", "<S-o><Esc><S-o>")
 set('n', '<S-i>', '<C-y>', { silent = true })
@@ -41,7 +41,7 @@ set('n', '<leader>q', ':silent q<CR>', { silent = true })
 set('n', '<leader>aw', ':silent w!<CR>:<CR>', { silent = true })
 set('n', '<leader>aq', ':q!<CR>')
 set('n', '<leader>as', 'A;<Esc>', { silent = true })
-set('n', '<leader>sc', 'zt10<C-y>$', {  })
+set('n', '<leader>sc', 'zt10<C-y>$')
 set('n', '<leader>sr', ':silent source .session.vim<CR>', { silent = true })
 set('n', '<leader>so', ':silent w<CR>:so<CR>', { silent = true })
 set('n', '<leader>co', 'gcc', { silent = true, remap = true })
@@ -120,25 +120,46 @@ set("n", "<leader>cd", function()
 end)
 
 set("n", "<leader>gi", function()
-  if vim.fn.systemlist("git config --get remote.origin.url")[1] == nil
-    or vim.fn.systemlist("git config --get remote.origin.url")[1] == "" then
+  local remote = vim.fn.systemlist("git config --get remote.origin.url")[1]
+
+  if remote == nil or remote == "" then
     vim.notify("No git remote found", vim.log.levels.WARN)
     return
   end
 
+  local url = remote
+  :gsub("%.git$", "")
+  :gsub("^git@github.com:", "https://github.com/")
+  :gsub("^ssh://git@github.com/", "https://github.com/")
+  :gsub("^https://github.com/", "https://github.com/")
+  .. "/issues"
+
+  local edge = vim.fn.exepath("msedge")
+
+  if edge == "" then
+    local candidates = {
+      vim.env["ProgramFiles(x86)"] .. "\\Microsoft\\Edge\\Application\\msedge.exe",
+      vim.env.ProgramFiles .. "\\Microsoft\\Edge\\Application\\msedge.exe",
+      vim.env.LOCALAPPDATA .. "\\Microsoft\\Edge\\Application\\msedge.exe",
+    }
+
+    for _, path in ipairs(candidates) do
+      if vim.fn.executable(path) == 1 then
+        edge = path
+        break
+      end
+    end
+  end
+
+  if edge == "" then
+    vim.notify("Could not find msedge.exe", vim.log.levels.ERROR)
+    return
+  end
+
   vim.system({
-    vim.env.ComSpec or "cmd.exe",
-    "/c",
-    "start",
-    "",
-    "msedge",
+    edge,
     "--new-window",
-    vim.fn.systemlist("git config --get remote.origin.url")[1]
-    :gsub("%.git$", "")
-    :gsub("^git@github.com:", "https://github.com/")
-    :gsub("^ssh://git@github.com/", "https://github.com/")
-    :gsub("^https://github.com/", "https://github.com/")
-    .. "/issues",
+    url,
   }, { detach = true })
 end)
 

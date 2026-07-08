@@ -8,7 +8,8 @@ opt.scroll = 10
 opt.report = 1000
 opt.showtabline = 0
 opt.tabline = "%!v:lua.Tabline()"
-opt.statusline = " %f %m %= (%p%%) %l,%c  "
+opt.statusline = " %f %m %= %l,%c  "
+-- opt.statusline = " %f %m %= (%p%%) %l,%c  "
 opt.confirm = true
 opt.timeout = false
 opt.hlsearch = false

@@ -15,6 +15,13 @@ require("lazy").setup({
     { "marko-cerovac/material.nvim", lazy = false },
     { "rose-pine/neovim", lazy = false },
     { "haze/sitruuna.vim", lazy = false },
+
+    { "andrewgilley/st.nvim", lazy = false },
+    { "andrewgilley/kg.nvim", lazy = false },
+    { "andrewgilley/dc.nvim", lazy = false },
+    { "andrewgilley/tk.nvim", lazy = false },
+    { "andrewgilley/gn.nvim", lazy = false },
+    { "andrewgilley/nd.nvim", lazy = false },
   },
 
   keys = {

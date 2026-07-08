@@ -20,6 +20,7 @@ return {
         "rust_analyzer",
         "clangd",
         "zls",
+        "gopls",
       },
     },
   },
@@ -35,6 +36,7 @@ return {
         "clangd",
         "jdtls",
         "zls",
+        "gopls",
       }
 
       local capabilities = require('blink.cmp').get_lsp_capabilities()
