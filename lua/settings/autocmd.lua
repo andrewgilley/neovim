@@ -1,5 +1,3 @@
-local restore_view_group = vim.api.nvim_create_augroup("RestoreView", { clear = true })
-
 vim.api.nvim_create_autocmd('FileType', {
   pattern = {
     'html', 'css', 'js', 'json',
@@ -75,7 +73,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
       })
 
       vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter", "TabEnter" }, {
-        group = restore_view_group,
+        group = vim.api.nvim_create_augroup("RestoreView", { clear = true }),
         callback = function()
           local views = vim.w.saved_views
           if not views then
@@ -97,7 +95,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
       })
 
       vim.api.nvim_create_autocmd({ "BufLeave", "WinLeave", "TabLeave" }, {
-        group = restore_view_group,
+        group = "RestoreView",
         callback = function()
           local bufnr = tostring(vim.api.nvim_get_current_buf())
           vim.w.saved_views = vim.w.saved_views or {}
