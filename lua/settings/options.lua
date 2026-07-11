@@ -8,7 +8,8 @@ opt.scroll = 10
 opt.report = 1000
 opt.showtabline = 0
 opt.tabline = "%!v:lua.Tabline()"
-opt.statusline = " %f %m %= %l,%c  "
+-- opt.statusline = " %{expand('%:p:h:h:t')}/%{expand('%:p:h:t')}/%t %m %= %l,%c "
+-- opt.statusline = " %F %m %= %l,%c  "
 -- opt.statusline = " %f %m %= (%p%%) %l,%c  "
 opt.confirm = true
 opt.timeout = false
@@ -36,6 +37,16 @@ opt.shortmess:append 'I'
 opt.guicursor:append('t:ver25')
 opt.fillchars:append({ fold = " " })
 opt.formatoptions:remove({ "r", "o" })
+
+opt.statusline =
+  " %{luaeval(\"(function() " ..
+  "local file = vim.api.nvim_buf_get_name(0); " ..
+  "if file == '' then return '' end; " ..
+  "local root = vim.fs.root(file, '.git'); " ..
+  "if not root then return vim.fn.fnamemodify(file, ':~:.') end; " ..
+  "return vim.fs.joinpath(vim.fs.basename(root), file:sub(#root + 2)) " ..
+  "end)()\")}" ..
+  " %m %= %l,%c  "
 
 function _G.Tabline()
   local s = ""

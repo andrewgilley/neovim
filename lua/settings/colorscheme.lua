@@ -3,7 +3,7 @@ local hl = vim.api.nvim_set_hl
 
 -- cmd("colorscheme default")
 -- cmd("colorscheme kanagawa")
--- cmd("colorscheme houston")
+cmd("colorscheme houston")
 -- cmd("colorscheme oc-2")
 -- cmd("colorscheme dracula")
 -- cmd("colorscheme rose-pine")
@@ -11,7 +11,7 @@ local hl = vim.api.nvim_set_hl
 -- cmd("colorscheme material-darker")
 -- cmd("colorscheme sitruuna")
 --
-cmd("colorscheme st")
+-- cmd("colorscheme st")
 -- cmd("colorscheme kg")
 -- cmd("colorscheme dc")
 -- cmd("colorscheme tk")
