@@ -1,3 +1,5 @@
+vim.g.first_tab_replaced = false
+
 vim.api.nvim_create_autocmd('FileType', {
   pattern = {
     'html', 'css', 'js', 'json',
@@ -33,16 +35,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     vim.cmd("silent keepjumps %!golines --max-len=80")
   end,
 })
-
--- vim.api.nvim_create_autocmd('FileType', {
---   pattern = { 'go' },
---   callback = function()
---     vim.bo.expandtab = false
---     vim.bo.tabstop = 8
---     vim.bo.softtabstop = 8
---     vim.bo.shiftwidth = 8
---   end,
--- })
 
 vim.api.nvim_create_autocmd("FileType", {
   group = vim.api.nvim_create_augroup("treesitter_start", { clear = true }),
@@ -135,13 +127,16 @@ vim.api.nvim_create_autocmd("CmdlineLeave", {
   pattern = "/",
   callback = function()
     vim.schedule(function()
-      local keys = vim.api.nvim_replace_termcodes("zt10<C-y>", true, false, true)
+      local keys = vim.api.nvim_replace_termcodes(
+        "zt10<C-y>",
+        true,
+        false,
+        true
+      )
       vim.api.nvim_feedkeys(keys, "m", false)
     end)
   end,
 })
-
-vim.g.first_tab_replaced = false
 
 vim.api.nvim_create_autocmd("TabNewEntered", {
   callback = function()

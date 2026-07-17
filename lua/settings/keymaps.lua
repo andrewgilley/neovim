@@ -50,7 +50,7 @@ set('n', '<leader>hs', ':split<CR>', { silent = true })
 set('n', '<leader>ma', ':Mason<CR>' , { silent = true })
 set('n', '<leader>bc', ':bd<CR>', { silent = true })
 set('n', '<leader>in', 'mzgg=G`z', { silent = true })
-set('n', '<leader>en', ':enew<CR>', { silent = true })
+set('n', '<leader>en', ':tabnew<CR>', { silent = true })
 set('n', '<leader>ew', ':echo winwidth(0)<CR>', { silent = true })
 set('n', '<leader>eh', ':lua vim.diagnostic.enable(false, { bufnr = 0 })<CR>', { silent = true })
 set('n', '<leader>ls', ':checkhealth vim.lsp<CR>', { silent = true })
@@ -99,7 +99,7 @@ set({ "n", "v", "o", "x" }, "i", "k", { nowait = true })
 set({ "n", "v", "o", "x" }, "k", "j", { nowait = true })
 set({ "n", "v", "o", "x" }, "j", "h", { nowait = true })
 
-set("n", "<leader>tr", function() vim.cmd("tab split") end)
+set("n", "<leader>tn", function() vim.cmd("tab split") end)
 
 set("n", "vd", function()
   vim.diagnostic.open_float(nil, {
