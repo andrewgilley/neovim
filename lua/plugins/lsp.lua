@@ -60,6 +60,33 @@ return {
         },
       }
 
+      vim.lsp.config.pyright = {
+        capabilities = capabilities,
+        before_init = function(_, config)
+          local root = config.root_dir
+
+          if not root then
+            return
+          end
+
+          local python_path = root
+          .. "\\.venv\\Scripts\\python.exe"
+
+          if vim.fn.executable(python_path) == 1 then
+            config.settings.python.pythonPath = python_path
+          end
+        end,
+        settings = {
+          python = {
+            analysis = {
+              autoSearchPaths = true,
+              useLibraryCodeForTypes = true,
+              diagnosticMode = "openFilesOnly",
+            },
+          },
+        },
+      }
+
       vim.lsp.enable(servers)
     end
   },

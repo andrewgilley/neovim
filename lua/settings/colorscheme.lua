@@ -17,6 +17,7 @@ cmd("colorscheme houston")
 -- cmd("colorscheme tk")
 -- cmd("colorscheme gn")
 -- cmd("colorscheme nd")
+-- cmd("colorscheme md")
 
 hl(0, "CursorLineNr", { link = 'LineNr' })
 
