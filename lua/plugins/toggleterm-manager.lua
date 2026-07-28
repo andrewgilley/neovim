@@ -10,6 +10,7 @@ return {
 
   config = function()
     local actions = require("toggleterm-manager").actions
+    local telescope_actions = require("telescope.actions")
     require("toggleterm-manager").setup({
       initial_mode = "normal",
 
@@ -31,6 +32,7 @@ return {
       mappings = {
         i = {
           ["<CR>"] = { action = actions.toggle_term, exit_on_action = true },
+          ["<C-i>"] = { action = telescope_actions.move_selection_previous, exit_on_action = false },
           ["<C-n>"] = { action = actions.create_term, exit_on_action = false },
           ["<C-d>"] = { action = actions.delete_term, exit_on_action = false },
           ["<C-r>"] = { action = actions.rename_term, exit_on_action = false },

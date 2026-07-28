@@ -30,6 +30,8 @@ opt.hidden = true
 opt.scrollbind = false
 opt.cursorbind = false
 opt.foldtext = "getline(v:foldstart)"
+vim.opt.grepprg = "rg --vimgrep --smart-case"
+vim.opt.grepformat = "%f:%l:%c:%m"
 opt.shortmess:append 'I'
 opt.guicursor:append('t:ver25')
 opt.fillchars:append({ fold = " " })

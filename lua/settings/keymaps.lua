@@ -54,6 +54,38 @@ set('n', '<leader>eh', ':lua vim.diagnostic.enable(false, { bufnr = 0 })<CR>', {
 set('n', '<leader>ls', ':checkhealth vim.lsp<CR>', { silent = true })
 set('n', '<leader>cpd', ':cd ..<CR>:pwd<CR>', { silent = true })
 set('n', '<leader>pwd', '<cmd>pwd<CR>', { silent = true })
+
+vim.keymap.set("n", "<leader>aq", function()
+  vim.cmd("silent grep! AGENT_CHANGE_BEGIN")
+  vim.cmd("cwindow")
+end, {
+desc = "Find agent change blocks",
+})
+
+-- Move through agent change locations.
+vim.keymap.set("n", "]a", "<cmd>cnext<cr>", {
+  desc = "Next agent change",
+})
+
+vim.keymap.set("n", "[a", "<cmd>cprevious<cr>", {
+  desc = "Previous agent change",
+})
+
+-- Jump to the first or last change.
+vim.keymap.set("n", "<leader>af", "<cmd>cfirst<cr>", {
+  desc = "First agent change",
+})
+
+vim.keymap.set("n", "<leader>al", "<cmd>clast<cr>", {
+  desc = "Last agent change",
+})
+
+vim.keymap.set("n", "<leader>ao", "<cmd>copen<cr>")
+
+vim.keymap.set("n", "<leader>ax", "<cmd>cclose<cr>", {
+  desc = "Close agent changes",
+})
+
 set('i', '<C-c>', '<Esc>', { silent = true })
 set('i', '<C-p>', '<C-r><C-p>+')
 set('v', '<C-c>', '"+y', { silent = true })
@@ -72,7 +104,7 @@ set({ 'n', 'v' }, 'gs', '^', { silent = true })
 set({ 'n', 'v' }, 'gl', '$', { silent = true })
 set({ 'n', 'v' }, '<C-l>', '10l', { silent = true })
 set({ 'n', 'v' }, '<C-j>', '10h', { silent = true })
-set({ 'n', 'v' }, '<leader>br', '%')
+set({ 'n', 'v' }, '<leader>brzt10<C-y>$', '%')
 set({ 'n', 'x' }, '<C-i>', '10k', { silent = true })
 set({ 'n', 'x' }, '<C-k>', '10j', { silent = true })
 set({ 'n', 'x' }, '<leader>ze', '0')
@@ -248,6 +280,17 @@ set("n", "<leader>cl", function()
     vim.o.cmdheight = 1
     require("noice").cmd("dismiss")
   end)
+end)
+
+vim.keymap.set("n", "<leader>dp", function()
+  local root = vim.fs.root(0, ".git")
+
+  if root then
+    vim.api.nvim_set_current_dir(root)
+    vim.notify(root)
+  else
+    vim.notify("Git project root not found", vim.log.levels.WARN)
+  end
 end)
 
 set({ 'n', 'i' }, '<C-Tab>', function()
