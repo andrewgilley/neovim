@@ -1,14 +1,14 @@
 return {
-  "andrewgilley/pantheon.nvim",
+  "andrewgilley/oculus.nvim",
 
   config = function()
-    require("pantheon").setup({
+    require("oculus").setup({
       width = function() return math.floor(vim.o.columns * 0.820) end,
       height = function() return math.floor(vim.o.lines * 0.796) end,
     })
 
-    vim.keymap.set("n", "<leader>pa", "<cmd>PantheonToggle<CR>", {
-      desc = "Toggle Pantheon",
+    vim.keymap.set("n", "<leader>oc", "<cmd>OculusToggle<CR>", {
+      desc = "Toggle Oculus",
       silent = true,
     })
   end,

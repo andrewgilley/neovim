@@ -49,42 +49,14 @@ set('n', '<leader>hs', ':split<CR>', { silent = true })
 set('n', '<leader>ma', ':Mason<CR>' , { silent = true })
 set('n', '<leader>bc', ':bd<CR>', { silent = true })
 set('n', '<leader>in', 'mzgg=G`z', { silent = true })
-set('n', '<leader>en', ':tabnew | tcd C:/Users/andre/Desktop/Dev/code/source/<CR>', { silent = true })
+set("n", "<leader>br", "%")
+set('n', '<leader>ts', ':tabnew | tcd C:/Users/andre/Desktop/Dev/code/source/<CR>', { silent = true })
+set('n', '<leader>tn', ":execute 'tabnew | tcd ' . fnameescape(expand('%:p:h'))<CR>", { silent = true })
+set("n", "<leader>tr", "<cmd>tab split<CR>", { silent = true })
 set('n', '<leader>eh', ':lua vim.diagnostic.enable(false, { bufnr = 0 })<CR>', { silent = true })
 set('n', '<leader>ls', ':checkhealth vim.lsp<CR>', { silent = true })
 set('n', '<leader>cpd', ':cd ..<CR>:pwd<CR>', { silent = true })
 set('n', '<leader>pwd', '<cmd>pwd<CR>', { silent = true })
-
-vim.keymap.set("n", "<leader>aq", function()
-  vim.cmd("silent grep! AGENT_CHANGE_BEGIN")
-  vim.cmd("cwindow")
-end, {
-desc = "Find agent change blocks",
-})
-
--- Move through agent change locations.
-vim.keymap.set("n", "]a", "<cmd>cnext<cr>", {
-  desc = "Next agent change",
-})
-
-vim.keymap.set("n", "[a", "<cmd>cprevious<cr>", {
-  desc = "Previous agent change",
-})
-
--- Jump to the first or last change.
-vim.keymap.set("n", "<leader>af", "<cmd>cfirst<cr>", {
-  desc = "First agent change",
-})
-
-vim.keymap.set("n", "<leader>al", "<cmd>clast<cr>", {
-  desc = "Last agent change",
-})
-
-vim.keymap.set("n", "<leader>ao", "<cmd>copen<cr>")
-
-vim.keymap.set("n", "<leader>ax", "<cmd>cclose<cr>", {
-  desc = "Close agent changes",
-})
 
 set('i', '<C-c>', '<Esc>', { silent = true })
 set('i', '<C-p>', '<C-r><C-p>+')
@@ -104,7 +76,6 @@ set({ 'n', 'v' }, 'gs', '^', { silent = true })
 set({ 'n', 'v' }, 'gl', '$', { silent = true })
 set({ 'n', 'v' }, '<C-l>', '10l', { silent = true })
 set({ 'n', 'v' }, '<C-j>', '10h', { silent = true })
-set({ 'n', 'v' }, '<leader>brzt10<C-y>$', '%')
 set({ 'n', 'x' }, '<C-i>', '10k', { silent = true })
 set({ 'n', 'x' }, '<C-k>', '10j', { silent = true })
 set({ 'n', 'x' }, '<leader>ze', '0')
@@ -129,7 +100,7 @@ set({ "n", "v", "o", "x" }, "i", "k", { nowait = true })
 set({ "n", "v", "o", "x" }, "k", "j", { nowait = true })
 set({ "n", "v", "o", "x" }, "j", "h", { nowait = true })
 
-set("n", "<leader>tn", function() vim.cmd("tab split") end)
+set("n", "<leader>tr", function() vim.cmd("tab split") end)
 
 set("n", "vd", function()
   vim.diagnostic.open_float(nil, {
@@ -147,6 +118,44 @@ set("n", "<leader>cd", function()
   end
 
   vim.api.nvim_set_current_dir(vim.fn.fnamemodify(dir, ":p"))
+end)
+
+local back
+
+vim.keymap.set("n", "<leader>jo", function()
+  if back then
+    vim.api.nvim_win_set_cursor(0, back)
+    back = nil
+    return
+  end
+
+  local cur = vim.api.nvim_win_get_cursor(0)
+  local line, indent = cur[1], vim.fn.indent(cur[1])
+
+  repeat
+    line = vim.fn.prevnonblank(line - 1)
+  until line == 0 or vim.fn.indent(line) < indent
+
+  if line > 0 then
+    back = cur
+    vim.api.nvim_win_set_cursor(0, { line, 0 })
+    vim.cmd.normal("$")
+  end
+end)
+
+vim.keymap.set("n", "<leader>ji", function()
+  local line, indent = vim.fn.line("."), vim.fn.indent(".")
+
+  while true do
+    line = vim.fn.nextnonblank(line + 1)
+    if line == 0 or vim.fn.indent(line) < indent then return end
+
+    if vim.fn.indent(line) > indent then
+      vim.api.nvim_win_set_cursor(0, { line, 0 })
+      vim.cmd.normal("^")
+      return
+    end
+  end
 end)
 
 set("n", "<leader>gi", function()

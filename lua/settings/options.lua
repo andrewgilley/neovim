@@ -7,7 +7,7 @@ opt.bg = "dark"
 opt.scroll = 10
 opt.report = 1000
 opt.showtabline = 0
-opt.statusline = " %f %m %= %l,%c  "
+opt.statusline = " %{v:lua.statusline_project_path()} %m %= %l,%c  "
 opt.confirm = true
 opt.timeout = false
 opt.hlsearch = false
@@ -36,3 +36,27 @@ opt.shortmess:append 'I'
 opt.guicursor:append('t:ver25')
 opt.fillchars:append({ fold = " " })
 opt.formatoptions:remove({ "r", "o" })
+
+_G.statusline_project_path = function()
+  local winid = vim.g.statusline_winid or vim.api.nvim_get_current_win()
+  local bufnr = vim.api.nvim_win_get_buf(winid)
+  local filename = vim.api.nvim_buf_get_name(bufnr)
+
+  if filename == "" then
+    return "[No Name]"
+  end
+
+  local root = vim.fs.root(bufnr, ".git")
+
+  if not root then
+    return vim.fn.fnamemodify(filename, ":~:.")
+  end
+
+  local relative = vim.fs.relpath(root, filename)
+
+  if not relative then
+    return vim.fn.fnamemodify(filename, ":t")
+  end
+
+  return (vim.fs.basename(root) .. "/" .. relative):gsub("\\", "/")
+end

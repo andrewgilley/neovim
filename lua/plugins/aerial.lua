@@ -32,6 +32,7 @@ return {
       "Object",
       "Class",
       "Struct",
+      "Constant",
       "Enum",
       "Interface",
       "Function",
@@ -40,7 +41,7 @@ return {
     },
 
     layout = {
-      width = 27,
+      width = 28,
       min_width = 0,
       max_width = 300,
       resize_to_content = true,
@@ -74,7 +75,7 @@ return {
       item.name = item.name:gsub("^impl%s+for%s+.*$", "impl")
     end
 
-    local max_len = 22
+    local max_len = 23
     local suffix = ".."
 
     if item.name and vim.fn.strcharlen(item.name) > max_len then
