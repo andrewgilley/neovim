@@ -76,7 +76,7 @@ return {
     end
 
     local max_len = 23
-    local suffix = ".."
+    local suffix = ""
 
     if item.name and vim.fn.strcharlen(item.name) > max_len then
       item.name = vim.fn.strcharpart(

@@ -122,42 +122,6 @@ end)
 
 local back
 
-vim.keymap.set("n", "<leader>jo", function()
-  if back then
-    vim.api.nvim_win_set_cursor(0, back)
-    back = nil
-    return
-  end
-
-  local cur = vim.api.nvim_win_get_cursor(0)
-  local line, indent = cur[1], vim.fn.indent(cur[1])
-
-  repeat
-    line = vim.fn.prevnonblank(line - 1)
-  until line == 0 or vim.fn.indent(line) < indent
-
-  if line > 0 then
-    back = cur
-    vim.api.nvim_win_set_cursor(0, { line, 0 })
-    vim.cmd.normal("$")
-  end
-end)
-
-vim.keymap.set("n", "<leader>ji", function()
-  local line, indent = vim.fn.line("."), vim.fn.indent(".")
-
-  while true do
-    line = vim.fn.nextnonblank(line + 1)
-    if line == 0 or vim.fn.indent(line) < indent then return end
-
-    if vim.fn.indent(line) > indent then
-      vim.api.nvim_win_set_cursor(0, { line, 0 })
-      vim.cmd.normal("^")
-      return
-    end
-  end
-end)
-
 set("n", "<leader>gi", function()
   local remote = vim.fn.systemlist("git config --get remote.origin.url")[1]
 
