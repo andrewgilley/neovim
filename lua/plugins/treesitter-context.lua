@@ -12,8 +12,10 @@ return {
 
   opts = {
     enable = true,
+    multiwindow = true,
     max_lines = 1,
     trim_scope = "inner",
+    mode = "topline",
   },
 
   config = function(_, opts)
