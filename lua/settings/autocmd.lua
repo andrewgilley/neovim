@@ -62,7 +62,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
         "<leader>cl", true, false, true), "m", false)
       end)
     end
-  })
+})
 
 vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter", "TabEnter" }, {
   group = vim.api.nvim_create_augroup("RestoreView", { clear = true }),

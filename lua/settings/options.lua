@@ -7,7 +7,7 @@ opt.bg = "dark"
 opt.scroll = 10
 opt.report = 1000
 opt.showtabline = 0
-opt.statusline = " %{v:lua.statusline_project_path()} %m %= %l,%c  "
+opt.statusline = " %{v:lua.statusline_project_path()} %m %= %{v:lua.statusline_search_count()} %l,%c  "
 opt.confirm = true
 opt.timeout = false
 opt.hlsearch = false
@@ -30,9 +30,10 @@ opt.hidden = true
 opt.scrollbind = false
 opt.cursorbind = false
 opt.foldtext = "getline(v:foldstart)"
-vim.opt.grepprg = "rg --vimgrep --smart-case"
-vim.opt.grepformat = "%f:%l:%c:%m"
+opt.grepprg = "rg --vimgrep --smart-case"
+opt.grepformat = "%f:%l:%c:%m"
 opt.shortmess:append 'I'
+opt.shortmess:remove 'S'
 opt.guicursor:append('t:ver25')
 opt.fillchars:append({ fold = " " })
 opt.formatoptions:remove({ "r", "o" })
@@ -59,4 +60,25 @@ _G.statusline_project_path = function()
   end
 
   return (vim.fs.basename(root) .. "/" .. relative):gsub("\\", "/")
+end
+
+_G.statusline_search_count = function()
+  local count = vim.fn.searchcount({
+    recompute = 1,
+    maxcount = 9999,
+    timeout = 100,
+  })
+
+  if count.total == 0 then
+    return ""
+  end
+
+  local current = count.current > 0 and count.current or "?"
+  local total = count.total
+
+  if count.incomplete > 0 then
+    total = total .. "+"
+  end
+
+  return string.format("[%s/%s]", current, total)
 end

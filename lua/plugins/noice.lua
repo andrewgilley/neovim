@@ -45,7 +45,7 @@ return {
       view = "notify",
       view_error = "notify",
       view_warn = "notify",
-      view_search = false,
+      view_search = "virtualtext",
     },
 
     notify = {

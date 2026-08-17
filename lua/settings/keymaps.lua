@@ -49,7 +49,7 @@ set('n', '<leader>hs', ':split<CR>', { silent = true })
 set('n', '<leader>ma', ':Mason<CR>' , { silent = true })
 set('n', '<leader>bc', ':bd<CR>', { silent = true })
 set('n', '<leader>in', 'mzgg=G`z', { silent = true })
-set("n", "<leader>br", "%")
+set("n", "<leader>br", "%zt10<C-y>^")
 set('n', '<leader>ts', ':tabnew | tcd C:/Users/andre/Desktop/Dev/code/source/<CR>', { silent = true })
 set('n', '<leader>tn', ":execute 'tabnew | tcd ' . fnameescape(expand('%:p:h'))<CR>", { silent = true })
 set("n", "<leader>tr", "<cmd>tab split<CR>", { silent = true })
@@ -295,3 +295,55 @@ local function close_tab_or_blank()
 end
 
 set("n", "<leader>bd", close_tab_or_blank)
+
+local digits = {
+  ze = '0', on = '1', tw = '2', th = '3', fo = '4',
+  fi = '5', si = '6', se = '7', ei = '8', ni = '9',
+}
+
+local start_chars = {
+  z = true,
+  o = true,
+  t = true,
+  f = true,
+  s = true,
+  e = true,
+  n = true
+}
+
+local function read_digits(initial_digit)
+  local count = initial_digit
+
+  while true do
+    local c1 = vim.fn.getcharstr()
+    if c1 == '\27' or c1 == '\3' then -- <Esc> or <C-c> cancels
+      return
+    end
+
+    if start_chars[c1] then
+      local c2 = vim.fn.getcharstr()
+      if c2 == '\27' or c2 == '\3' then
+        return
+      end
+
+      local pair = c1 .. c2
+      if digits[pair] then
+        count = count .. digits[pair]
+      else
+        -- Non-digit starting with z/o/t/f/s/e/n (e.g., 'fa' or 't(')
+        vim.api.nvim_feedkeys(count .. c1 .. c2, 'm', true)
+        return
+      end
+    else
+      -- Regular motion or operator character (e.g., 'j', 'w', 'G')
+      vim.api.nvim_feedkeys(count .. c1, 'm', true)
+      return
+    end
+  end
+end
+
+for prefix, num in pairs(digits) do
+  vim.keymap.set({ 'n', 'x', 'o' }, '<leader>' .. prefix, function()
+    read_digits(num)
+  end, { desc = 'Dynamic digit count' })
+end

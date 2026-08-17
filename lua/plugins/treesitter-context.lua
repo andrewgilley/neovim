@@ -20,8 +20,8 @@ return {
 
   config = function(_, opts)
     local function set_highlights()
-      vim.api.nvim_set_hl(0, "TreesitterContext", { link = "Normal" })
-      vim.api.nvim_set_hl(0, "TreesitterContextLineNumber", { link = "LineNr" })
+      -- vim.api.nvim_set_hl(0, "TreesitterContext", { link = "Normal" })
+      -- vim.api.nvim_set_hl(0, "TreesitterContextLineNumber", { link = "LineNr" })
       vim.api.nvim_set_hl(0, "TreesitterContextBottom", { underline = true })
       vim.api.nvim_set_hl(0, "TreesitterContextLineNumberBottom", {
         link = "TreesitterContextBottom",
