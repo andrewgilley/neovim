@@ -69,14 +69,15 @@ _G.statusline_search_count = function()
     timeout = 100,
   })
 
-  if count.total == 0 then
+  local total = count.total or 0
+
+  if total == 0 then
     return ""
   end
 
-  local current = count.current > 0 and count.current or "?"
-  local total = count.total
+  local current = (count.current or 0) > 0 and count.current or "?"
 
-  if count.incomplete > 0 then
+  if (count.incomplete or 0) > 0 then
     total = total .. "+"
   end
 

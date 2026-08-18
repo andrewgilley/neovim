@@ -103,6 +103,15 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   command = [[%s/\s\+$//e]],
 })
 
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
+  group = vim.api.nvim_create_augroup("ClearSearchOnFileOpen", { clear = true }),
+  callback = function()
+    vim.fn.setreg("/", "")
+    vim.cmd("nohlsearch")
+    vim.cmd("redrawstatus")
+  end,
+})
+
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = "*.CPP",
   callback = function()
