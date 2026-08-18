@@ -34,7 +34,7 @@ return {
       { "<leader>to", ":TermNew dir=%:p:h<CR>" },
 
       {
-        "<C-;>",
+        "<C-.>",
         function()
           restore_insert_after_term = false
           vim.cmd("ToggleTerm")
@@ -43,7 +43,7 @@ return {
       },
 
       {
-        "<C-;>",
+        "<C-.>",
         function()
           restore_insert_after_term = true
           vim.cmd("stopinsert")
@@ -53,7 +53,7 @@ return {
       },
 
       {
-        "<C-;>",
+        "<C-.>",
         function()
           vim.cmd("stopinsert")
           vim.cmd("ToggleTerm")

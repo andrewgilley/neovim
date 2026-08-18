@@ -1,6 +1,7 @@
 require("settings.lazy")
 require("settings.keymaps")
 require("settings.options")
+require("settings.format").setup()
 require("settings.autocmd")
 require("settings.colorscheme")
 
