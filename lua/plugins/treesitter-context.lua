@@ -1,15 +1,12 @@
 return {
   "nvim-treesitter/nvim-treesitter-context",
   lazy = false,
-
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
   },
-
   keys = {
     { "<leader>tc", "<cmd>TSContext toggle<CR>", desc = "Toggle Treesitter context" },
   },
-
   opts = {
     enable = true,
     multiwindow = true,
@@ -17,12 +14,12 @@ return {
     trim_scope = "inner",
     mode = "topline",
   },
-
   config = function(_, opts)
     local function set_highlights()
-      -- vim.api.nvim_set_hl(0, "TreesitterContext", { link = "Normal" })
-      -- vim.api.nvim_set_hl(0, "TreesitterContextLineNumber", { link = "LineNr" })
+      vim.api.nvim_set_hl(0, "TreesitterContext", { link = "Normal" })
+      vim.api.nvim_set_hl(0, "TreesitterContextLineNumber", { link = "LineNr" })
       vim.api.nvim_set_hl(0, "TreesitterContextBottom", { underline = true })
+
       vim.api.nvim_set_hl(0, "TreesitterContextLineNumberBottom", {
         link = "TreesitterContextBottom",
       })

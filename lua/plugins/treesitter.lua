@@ -3,24 +3,21 @@ return {
   branch = "master",
   lazy = false,
   main = "nvim-treesitter.configs",
-
   cmd = {
     "TSUpdate",
   },
-
   build = ':TSUpdate',
-
   dependencies = {
     'nvim-treesitter/nvim-treesitter-textobjects',
   },
-
   opts = {
     highlight = {
       enable = true,
     },
-
+    matchup = {
+      enable = true,
+    },
     auto_install = true,
-
     ensure_installed = {
       "tsx",
       "html",
@@ -37,7 +34,6 @@ return {
       "odin",
       "zig",
     },
-
     textobjects = {
       move = {
         enable = true,

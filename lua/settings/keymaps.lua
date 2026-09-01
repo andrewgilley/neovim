@@ -1,5 +1,4 @@
 local set = vim.keymap.set
-
 set('n', 'n', 'i', { nowait = true })
 set('n', 'L', '}k$', { silent = true })
 set('n', 'u', ':<C-u>silent undo<CR>', { silent = true })
@@ -57,7 +56,6 @@ set('n', '<leader>eh', ':lua vim.diagnostic.enable(false, { bufnr = 0 })<CR>', {
 set('n', '<leader>ls', ':checkhealth vim.lsp<CR>', { silent = true })
 set('n', '<leader>cpd', ':cd ..<CR>:pwd<CR>', { silent = true })
 set('n', '<leader>pwd', '<cmd>pwd<CR>', { silent = true })
-
 set('i', '<C-c>', '<Esc>', { silent = true })
 set('i', '<C-p>', '<C-r><C-p>+')
 set('v', '<C-c>', '"+y', { silent = true })
@@ -66,7 +64,6 @@ set('v', '<C-y>', '"+y', { silent = true })
 set('x', 'y', 'myy`y', {  })
 set('t', '<C-d>', [[<C-\><C-n>]])
 set('c', '<C-p>', '<C-r>+')
-
 set({ 'n', 'i' }, '<C-Left>', '10h', { silent = true })
 set({ 'n', 'i' }, '<C-Right>', '10l', { silent = true })
 set({ 'n', 'v' }, '-', '$', { silent = false })
@@ -88,18 +85,15 @@ set({ 'n', 'x' }, '<leader>si', '6')
 set({ 'n', 'x' }, '<leader>se', '7')
 set({ 'n', 'x' }, '<leader>ei', '8')
 set({ 'n', 'x' }, '<leader>ni', '9')
-
 set({ 'n', 'i', 'x' }, '<C-Up>', '10k', { silent = true })
 set({ 'n', 'i', 'x' }, '<S-Up>', '<C-y>', { silent = true })
 set({ 'n', 'i', 'x' }, '<C-Down>', '10j', { silent = true })
 set({ 'n', 'i', 'x' }, '<S-Down>', '<C-e>', { silent = true })
 set({ 'n', 'i', 'x' }, '<S-C-Up>', '10<C-y>', { silent = true })
 set({ 'n', 'i', 'x' }, '<S-C-Down>', '10<C-e>', { silent = true })
-
 set({ "n", "v", "o", "x" }, "i", "k", { nowait = true })
 set({ "n", "v", "o", "x" }, "k", "j", { nowait = true })
 set({ "n", "v", "o", "x" }, "j", "h", { nowait = true })
-
 set("n", "<leader>tr", function() vim.cmd("tab split") end)
 
 set("n", "vd", function()
@@ -239,6 +233,7 @@ vim.keymap.set("n", "<leader>gm", function()
           "--new-window",
           url,
         }, { detach = true })
+
         return
       end
     end
@@ -251,7 +246,10 @@ set("n", "<leader>cl", function()
   vim.schedule(function()
     vim.o.cmdheight = 0
     vim.o.cmdheight = 1
-    require("noice").cmd("dismiss")
+    pcall(function() require("noice").cmd("dismiss") end)
+    vim.fn.setreg("/", "")
+    vim.cmd("nohlsearch")
+    vim.cmd("redrawstatus")
   end)
 end)
 
@@ -284,7 +282,6 @@ local function close_tab_or_blank()
 
   vim.cmd("tabnew")
   vim.cmd("tabprevious")
-
   local ok, err = pcall(vim.cmd, "tabclose")
 
   if not ok then
@@ -316,17 +313,20 @@ local function read_digits(initial_digit)
 
   while true do
     local c1 = vim.fn.getcharstr()
+
     if c1 == '\27' or c1 == '\3' then -- <Esc> or <C-c> cancels
       return
     end
 
     if start_chars[c1] then
       local c2 = vim.fn.getcharstr()
+
       if c2 == '\27' or c2 == '\3' then
         return
       end
 
       local pair = c1 .. c2
+
       if digits[pair] then
         count = count .. digits[pair]
       else
