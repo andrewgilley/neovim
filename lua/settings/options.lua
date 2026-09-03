@@ -1,5 +1,4 @@
 local opt = vim.opt
-
 opt.number = false
 opt.relativenumber = true
 opt.wrap = false
@@ -7,7 +6,7 @@ opt.bg = "dark"
 opt.scroll = 10
 opt.report = 1000
 opt.showtabline = 0
-opt.statusline = " %{v:lua.statusline_project_path()} %m %= %{v:lua.statusline_search_count()} %l(%L),%c  "
+opt.statusline = " %{v:lua.statusline_project_path()} %m %= %l(%L),%c  "
 opt.confirm = true
 opt.timeout = false
 opt.hlsearch = false
@@ -60,34 +59,4 @@ _G.statusline_project_path = function()
   end
 
   return (vim.fs.basename(root) .. "/" .. relative):gsub("\\", "/")
-end
-
-_G.statusline_search_count = function()
-  if vim.fn.getreg("/") == "" then
-    return ""
-  end
-
-  local ok, count = pcall(vim.fn.searchcount, {
-    recompute = 1,
-    maxcount = 9999,
-    timeout = 100,
-  })
-
-  if not ok or type(count) ~= "table" or not count.total then
-    return ""
-  end
-
-  local total = count.total or 0
-
-  if total == 0 then
-    return ""
-  end
-
-  local current = (count.current or 0) > 0 and count.current or "?"
-
-  if (count.incomplete or 0) > 0 then
-    total = total .. "+"
-  end
-
-  return string.format("[%s/%s]", current, total)
 end

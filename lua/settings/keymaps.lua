@@ -316,7 +316,7 @@ local function read_digits(initial_digit)
   while true do
     local c1 = vim.fn.getcharstr()
 
-    if c1 == '\27' or c1 == '\3' then -- <Esc> or <C-c> cancels
+    if c1 == '\27' or c1 == '\3' then
       return
     end
 
@@ -332,12 +332,10 @@ local function read_digits(initial_digit)
       if digits[pair] then
         count = count .. digits[pair]
       else
-        -- Non-digit starting with z/o/t/f/s/e/n (e.g., 'fa' or 't(')
         vim.api.nvim_feedkeys(count .. c1 .. c2, 'm', true)
         return
       end
     else
-      -- Regular motion or operator character (e.g., 'j', 'w', 'G')
       vim.api.nvim_feedkeys(count .. c1, 'm', true)
       return
     end
