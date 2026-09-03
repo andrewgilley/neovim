@@ -1,9 +1,11 @@
 require("settings.lazy")
 require("settings.keymaps")
 require("settings.options")
-require("settings.format").setup()
 require("settings.autocmd")
+require("settings.filetype")
 require("settings.colorscheme")
+
+require("settings.format").setup()
 
 local cwd = vim.api.nvim_set_current_dir
 

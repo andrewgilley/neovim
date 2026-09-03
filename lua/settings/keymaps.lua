@@ -1,4 +1,5 @@
 local set = vim.keymap.set
+
 set('n', 'n', 'i', { nowait = true })
 set('n', 'L', '}k$', { silent = true })
 set('n', 'u', ':<C-u>silent undo<CR>', { silent = true })
@@ -47,6 +48,7 @@ set('n', '<leader>vs', ':vs<CR>', { silent = true })
 set('n', '<leader>hs', ':split<CR>', { silent = true })
 set('n', '<leader>ma', ':Mason<CR>' , { silent = true })
 set('n', '<leader>bc', ':bd<CR>', { silent = true })
+set('n', '<leader>ft', '<cmd>set ft?<CR>')
 set('n', '<leader>in', 'mzgg=G`z', { silent = true })
 set("n", "<leader>br", "%zt10<C-y>^")
 set('n', '<leader>ts', ':tabnew | tcd C:/Users/andre/Desktop/Dev/code/source/<CR>', { silent = true })

@@ -21,6 +21,7 @@ return {
     ensure_installed = {
       "tsx",
       "html",
+      "ini",
       "css",
       "toml",
       "go",
