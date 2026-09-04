@@ -14,7 +14,15 @@ return {
           minimum_width = 20,
           top_down = false,
           timeout = 1800,
-          background_colour = "#17191E",
+          background_colour = function()
+            local normal = vim.api.nvim_get_hl(0, { name = "Normal", link = false })
+
+            if normal and normal.bg then
+              return string.format("#%06x", normal.bg)
+            end
+
+            return "#000000"
+          end,
         })
       end,
     },
